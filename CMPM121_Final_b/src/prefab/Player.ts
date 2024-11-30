@@ -5,6 +5,7 @@ export default class Player {
     private image: HTMLImageElement;
     private ctx!: CanvasRenderingContext2D;
     private playerPos: PlayerPostionData;
+    private inPlantable: boolean
     constructor() {
         // image logic
         this.image = new Image();
@@ -20,6 +21,8 @@ export default class Player {
             "playerMoveEvent",
             (e) => this.handleMove(e as CustomEvent),
         );
+
+        this.inPlantable = false
     }
 
     setCtx(ctx: CanvasRenderingContext2D) {
@@ -66,6 +69,22 @@ export default class Player {
                 this.playerPos.dx += movementInterval
                 console.log("we go right");
                 break;
+        }
+        const {dx, dy} = this.playerPos
+        if(dx >= 30 && dx <=230 && dy >= 80 && dy <= 110){
+            if(!this.inPlantable){
+                this.inPlantable = true
+                document.dispatchEvent(new Event('enterPlantable'))
+                console.log('enter plantable')
+            }
+            console.log('in plantable zone')
+        } else {
+            if(this.inPlantable){
+                this.inPlantable = false
+                document.dispatchEvent(new Event('exitPlantable'))
+                console.log('exit plantable')
+            }
+            console.log('not in plantable zone')
         }
     }
 }
