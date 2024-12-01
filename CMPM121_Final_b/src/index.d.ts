@@ -6,7 +6,7 @@ interface PlayerPostionData {
 }
 
 interface Renderable {
-  display: (ctx? : CanvasRenderingContext2D) => void
+  display: (ctx?: CanvasRenderingContext2D) => void
 }
 
 interface Cell {

@@ -6,15 +6,19 @@ export default class Player implements Renderable {
     private ctx!: CanvasRenderingContext2D;
     private playerPos: PlayerPostionData;
     private inPlantable: boolean
+    private PLAYERX: number;
+    private PLAYERY: number;
     constructor() {
         // image logic
         this.image = new Image();
         this.image.src = playerSrc;
         this.image.onload = () => this.display();
+        this.PLAYERX = 30;
+        this.PLAYERY = 70;
 
         this.playerPos = {
-            dx: 0,
-            dy: 0,
+            dx: this.PLAYERX,
+            dy: this.PLAYERY,
         };
 
         document.addEventListener(
@@ -45,41 +49,41 @@ export default class Player implements Renderable {
     }
 
     handleMove(e: CustomEvent) {
-        const {movementInterval} = GAME_CONFIG.player
+        const { movementInterval } = GAME_CONFIG.player
         switch (e.detail) {
             case "up":
-                if(this.playerPos.dy <= 0) return
+                if (this.playerPos.dy <= 0) return
                 this.playerPos.dy -= movementInterval
                 console.log("we go up");
                 break;
             case "down":
-                if(this.playerPos.dy >= GAME_CONFIG.player.heightBound) return
+                if (this.playerPos.dy >= GAME_CONFIG.player.heightBound) return
                 console.log(this.playerPos.dy)
                 this.playerPos.dy += movementInterval
                 console.log("we go down");
                 break;
             case "left":
-                if(this.playerPos.dx <= 0) return
+                if (this.playerPos.dx <= 0) return
                 this.playerPos.dx -= movementInterval
                 console.log("we go left");
                 break;
 
             case "right":
-                if(this.playerPos.dx >= GAME_CONFIG.player.widthBound) return
+                if (this.playerPos.dx >= GAME_CONFIG.player.widthBound) return
                 this.playerPos.dx += movementInterval
                 console.log("we go right");
                 break;
         }
-        const {dx, dy} = this.playerPos
-        if(dx >= 30 && dx <=230 && dy >= 80 && dy <= 110){
-            if(!this.inPlantable){
+        const { dx, dy } = this.playerPos
+        if (dx >= 30 && dx <= 230 && dy >= 80 && dy <= 110) {
+            if (!this.inPlantable) {
                 this.inPlantable = true
                 document.dispatchEvent(new Event('enterPlantable'))
                 console.log('enter plantable')
             }
             console.log('in plantable zone')
         } else {
-            if(this.inPlantable){
+            if (this.inPlantable) {
                 this.inPlantable = false
                 document.dispatchEvent(new Event('exitPlantable'))
                 console.log('exit plantable')
