@@ -1,15 +1,18 @@
 import { useContext } from "react";
-import { CellContext, PlantContext } from "../Context.ts";
+import { CellContext, CellIndexContext, PlantContext } from "../Context.ts";
+import type PlantManager from "../controller/PlantController.ts";
 
-const GameController: React.FC = () => {
-
-    const { selectedCellIndex } = useContext(CellContext)
-    const { cell, setCell } = useContext(PlantContext)
-
+interface GCProps{
+    plantManager: PlantManager
+}
+const GameController: React.FC<GCProps> = ({plantManager}) => {
+    const { selectedCellIndex } = useContext(CellIndexContext);
+    const { cell, setCell } = useContext(CellContext);
+    const { selectedPlant } = useContext(PlantContext);
 
     const takeTurn = () => {
-        document.dispatchEvent(new Event('nextTurnEvent'))
-    }
+        document.dispatchEvent(new Event("nextTurnEvent"));
+    };
 
     const reap = () => {
         if (!selectedCellIndex || !cell) {
@@ -22,16 +25,19 @@ const GameController: React.FC = () => {
         }
 
         // create a deep copy of the cell and then set the state back to empty
-        setCell({
+        const newCell = {
             ...cell,
             planterBox: {
                 ...cell.planterBox,
                 // Reset plant to "blank"
                 plant: { species: "none", growthLevel: 0 },
             },
-        });
+        }
+        setCell(newCell);
+        console.log(selectedCellIndex, newCell)
+        plantManager.addPlantableCell(selectedCellIndex - 1, newCell)
         console.log("plant cleared (reap)");
-    }
+    };
 
     const sow = () => {
         if (!selectedCellIndex || !cell) {
@@ -39,29 +45,29 @@ const GameController: React.FC = () => {
             return;
         }
 
-        // Find the selected plant from the dropdown
-        const plantDropdown = document.getElementById(
-            "plants"
-        ) as HTMLSelectElement;
-
-        const selectedPlant = plantDropdown.value as string;
-
         if (!selectedPlant) {
             console.log("No plant species selected.");
             return;
         }
 
+        if(cell.planterBox.plant.species !== 'none'){
+            console.log('already a plant here')
+            return;
+        }
+
         // Set the selected plant in the planter box
-        setCell({
+        const newCell = {
             ...cell,
             planterBox: {
                 ...cell.planterBox,
                 plant: { species: selectedPlant, growthLevel: 0 },
             },
-        });
-
+        }
+        setCell(newCell);
+        console.log(selectedCellIndex, newCell)
+        plantManager.addPlantableCell(selectedCellIndex - 1, newCell)
         console.log("plant sowed:", selectedPlant);
-    }
+    };
 
     return (
         <div className="game-controller-container">
@@ -72,4 +78,4 @@ const GameController: React.FC = () => {
     );
 };
 
-export default GameController
+export default GameController;

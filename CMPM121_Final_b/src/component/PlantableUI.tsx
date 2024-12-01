@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { CellContext } from "../Context.ts";
+import { CellIndexContext } from "../Context.ts";
 import PlanterBoxUI from "./PlanterBoxUI.tsx";
 import PlantManager from "../controller/PlantController.ts";
 
@@ -7,7 +7,7 @@ interface PlantableUIProps {
     plantManager: PlantManager;
 }
 const PlantableUI: React.FC<PlantableUIProps> = ({ plantManager }) => {
-    const { selectedCellIndex, setSelectedCellIndex } = useContext(CellContext);
+    const { selectedCellIndex, setSelectedCellIndex } = useContext(CellIndexContext);
     const [isVisible, setIsVisible] = useState(false);
     const [loading, setLoading] = useState(true);
 
@@ -48,7 +48,7 @@ const PlantableUI: React.FC<PlantableUIProps> = ({ plantManager }) => {
     }, []);
 
     // Handle the change event when a radio button is selected
-    const handleSelection = (event: ChangeEvent<HTMLInputElement>) => {
+    const handleSelection = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSelectedCellIndex(event.target.value);
     };
 

@@ -10,8 +10,8 @@ export default class GameManager {
   public selectedCellIndex: number = 0;
   public currentLevel!: number;
   public turnCounter!: number;
-  private savedGameSlot: number;
-  private loadGameSlot: number;
+  public savedGameSlot: number;
+  public loadGameSlot: number;
 
   constructor(
     plantManager: PlantManager,
@@ -46,9 +46,10 @@ export default class GameManager {
     } else { // otherwise we found some data
       let plantData: ArrayBuffer; // so we load it
       [this.currentLevel, this.turnCounter, plantData] = loadGameState(
-        this.savedGameSlot,
+        this.loadGameSlot,
       ) as [number, number, ArrayBuffer];
       this.plantManager.setPlantableCellBuffer(plantData); // set all the cells to the loaded data
+      this.plantManager.isLoading = false
     }
   }
 

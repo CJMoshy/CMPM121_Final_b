@@ -1,4 +1,4 @@
-import { CellContext, PlantContext } from "../Context.ts";
+import { CellIndexContext, CellContext } from "../Context.ts";
 import PlantManager from "../controller/PlantController.ts";
 import { useEffect, useContext} from "react";
 
@@ -6,8 +6,9 @@ interface BoxUIProps {
     plantManager: PlantManager;
 }
 const PlanterBoxUI: React.FC<BoxUIProps> = ({ plantManager }) => {
-    const { selectedCellIndex } = useContext(CellContext); // Assuming selectedCell is being provided here
-    const {cell, setCell} = useContext(PlantContext)
+    
+    const { selectedCellIndex } = useContext(CellIndexContext); // Assuming selectedCell is being provided here
+    const {cell, setCell} = useContext(CellContext)
 
     useEffect(() => {
         // Update the state whenever selectedCell changes

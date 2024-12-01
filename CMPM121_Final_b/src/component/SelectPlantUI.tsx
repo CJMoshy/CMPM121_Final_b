@@ -1,7 +1,5 @@
-import React, { useContext, useEffect, useState, FormEvent } from "react";
-import { PlantContext } from "../Context";
-
-type PlantSpecies = "none" | 'Wheat' | 'Aloe Vera' | 'FlyTrap';
+import React, { useContext } from "react";
+import { PlantContext } from "../Context.ts";
 
 const SelectPlantUI: React.FC = () => {
 
@@ -18,7 +16,7 @@ const SelectPlantUI: React.FC = () => {
                 <select id="plants" value={selectedPlant} onChange={handlePlantChange}>
                     <option value="Wheat"> Wheat</option>
                     <option value="Aloe Vera">Aloe Vera</option>
-                    <option value="FlyTrap">Flytrap</option>
+                    <option value="Flytrap">Flytrap</option>
                 </select>
             </form>
         </div>
