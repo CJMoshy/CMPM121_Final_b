@@ -8,6 +8,7 @@ import GameManager from "./controller/GameManager.ts"; // ts class that does the
 import PlantableUI from "./component/PlantableUI.tsx";
 import SelectPlantUI from "./component/SelectPlantUI.tsx";
 import SaveNLoad from "./component/SaveNLoad.tsx";
+import UndoRedo from "./component/UndoRedo.tsx";
 import PlantManager from "./controller/PlantController.ts";
 import CommandPipeline from "./util/CommandPipeline.ts";
 import Action from "./util/Action.ts";
@@ -58,6 +59,7 @@ function App() {
             <PlayerController />
             <GameController plantManager={plantManager} />
             <SaveNLoad gameManager={gameManager} />
+            <UndoRedo cmdPipe={cmdPipeline} />
             <PlantableUI plantManager={plantManager} />
             <SelectPlantUI />
           </PlantContext.Provider>
