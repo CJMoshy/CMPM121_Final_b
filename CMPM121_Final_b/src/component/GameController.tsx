@@ -1,26 +1,33 @@
-
+import { useContext } from "react";
+import { CellContext,PlantContext } from "../Context.ts";
 
 const GameController: React.FC = () => {
 
-    // const {selectedCell} = useContext(CellContext)
+    const {selectedCellIndex} = useContext(CellContext)
+    const {cell} = useContext(PlantContext)
 
     const takeTurn = () => {
         document.dispatchEvent(new Event('nextTurnEvent'))
     }
 
     const reap = () => {
-        // if(!selectedCell){
-        //     console.log('no cell selected')
-        // } 
-        // console.log(selectedCell)
+        if(!selectedCellIndex){
+            console.log('no cell selected')
+            return
+        } 
+        
+        const {plant} = cell.planterBox
+        console.log(plant)
         console.log('reap')
     }   
 
     const sow = () => {
-        // if(!selectedCell){
-        //     console.log('no cell selected')
-        // }
-        // console.log(selectedCell)
+        if(!selectedCellIndex){
+            console.log('no cell selected')
+            return
+        }
+        const {plant} = cell.planterBox
+        console.log(plant)
         console.log('sow')
     }
 

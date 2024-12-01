@@ -19,52 +19,10 @@ export default class GameManager {
     this.plantManager = plantManager;
     this.savedGameSlot = 1;
     this.loadGameSlot = 1;
-    // // query the html and get the dropdown of what save
-    // const gameSavesSelect = document.getElementById(
-    //   "gameSaves",
-    // ) as HTMLSelectElement; // it will always start at 1
-
-    // // whenever it changes set that to the state we want to save
-    // gameSavesSelect.addEventListener("change", () => {
-    //   this.savedGameSlot = Number(
-    //     gameSavesSelect.value.at(gameSavesSelect.value.length - 1),
-    //   );
-    //   console.log(`User selected: ${this.savedGameSlot}`);
-    // });
-
-    // // save button saves the game
-    // document.getElementById("saveBtn")?.addEventListener(
-    //   "click",
-    //   () => this.saveGame(),
-    // );
-
-    // // query the html and get the dropdown of what save
-    // const gameLoadSelect = document.getElementById(
-    //   "gameLoads",
-    // ) as HTMLSelectElement; // it will always start at 1
-
-    // // whenever it changes set that to the state we want to load
-    // gameLoadSelect.addEventListener("change", () => {
-    //   this.loadGameSlot = Number(
-    //     gameLoadSelect.value.at(gameLoadSelect.value.length - 1),
-    //   );
-    //   console.log(
-    //     `User selected: ${
-    //       gameLoadSelect.value.at(gameLoadSelect.value.length - 1)
-    //     }`,
-    //   );
-    // });
-
-    // // // save button saves the game
-    // document.getElementById("loadBtn")?.addEventListener(
-    //   "click",
-    //   () => this.loadSavedGame(),
-    // );
   }
 
   initGame() {
     document.addEventListener("nextTurnEvent", () => this.advanceTurn());
-    // set up game
     this.loadSavedGame(); // load saved game TODO -> load a specific save
   }
 
@@ -77,7 +35,6 @@ export default class GameManager {
         new Uint8Array(this.plantManager.getPlantableCellBuffer()),
       ),
     }, this.savedGameSlot); // pass in a 'slot' to save different instances of the game
-    // this.commandPipeline.saveToLocalStorage()
   }
 
   // load game from local storage
@@ -113,13 +70,6 @@ export default class GameManager {
       this.plantManager.addPlantableCell(arrayBufferOffset, cell); // write to the buffer the updated cells
       arrayBufferOffset += 1;
     });
-
-    // if (this.selectedCell) { // is there a window open with a cell in it
-    //   this.UIManager.updatePlantInfoUI( // then update the ui
-    //     this.plantManager.getAllPlantableCells()[this.selectedCellIndex]
-    //       .planterBox,
-    //   );
-    // }
 
     // query level status
     this.handleCompleteLevel();

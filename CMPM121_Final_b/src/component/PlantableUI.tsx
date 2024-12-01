@@ -7,7 +7,7 @@ interface PlantableUIProps {
     plantManager: PlantManager;
 }
 const PlantableUI: React.FC<PlantableUIProps> = ({ plantManager }) => {
-    const { selectedCell, setSelectedCell } = useContext(CellContext);
+    const { selectedCellIndex, setSelectedCellIndex } = useContext(CellContext);
     const [isVisible, setIsVisible] = useState(false);
     const [loading, setLoading] = useState(true);
 
@@ -22,7 +22,7 @@ const PlantableUI: React.FC<PlantableUIProps> = ({ plantManager }) => {
         const handleExitPlantable = () => {
             console.log("listener for exit plantable");
             setIsVisible(false); // Set visibility to false when exitPlantable event occurs
-            setSelectedCell(undefined);
+            setSelectedCellIndex(undefined);
         };
 
         // Attach event listeners
@@ -49,7 +49,7 @@ const PlantableUI: React.FC<PlantableUIProps> = ({ plantManager }) => {
 
     // Handle the change event when a radio button is selected
     const handleSelection = (event: ChangeEvent<HTMLInputElement>) => {
-        setSelectedCell(event.target.value);
+        setSelectedCellIndex(event.target.value);
     };
 
     return (
@@ -79,7 +79,7 @@ const PlantableUI: React.FC<PlantableUIProps> = ({ plantManager }) => {
                             );
                         })}
                     </form>
-                    <p>Selected PlanterBox: {selectedCell}</p>
+                    <p>Selected PlanterBox: {selectedCellIndex}</p>
                     <PlanterBoxUI plantManager={plantManager} />
                 </div>
             )}

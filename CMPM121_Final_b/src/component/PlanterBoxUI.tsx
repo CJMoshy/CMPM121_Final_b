@@ -1,27 +1,25 @@
-import { useContext } from "react";
-import { CellContext } from "../Context.ts";
+import { CellContext, PlantContext } from "../Context.ts";
 import PlantManager from "../controller/PlantController.ts";
-import { useEffect, useState } from "react";
+import { useEffect, useContext} from "react";
 
 interface BoxUIProps {
     plantManager: PlantManager;
 }
 const PlanterBoxUI: React.FC<BoxUIProps> = ({ plantManager }) => {
-    const { selectedCell } = useContext(CellContext); // Assuming selectedCell is being provided here
+    const { selectedCellIndex } = useContext(CellContext); // Assuming selectedCell is being provided here
+    const {cell, setCell} = useContext(PlantContext)
 
-    // Use state to store the cell
-    const [cell, setCell] = useState<Cell | undefined>(undefined);
     useEffect(() => {
         // Update the state whenever selectedCell changes
         if(plantManager.isLoading === false){
             const allCells = plantManager.getAllPlantableCells()
             console.log(allCells)
-            setCell(allCells.at(selectedCell - 1))
+            setCell(allCells.at(selectedCellIndex - 1))
         } else {
             console.log('planterbox is still loading')
         }
    
-    }, [selectedCell]); // Re-run when selectedCell or plantManager changes
+    }, [selectedCellIndex]); // Re-run when selectedCell or plantManager changes
 
     return (
         <>
