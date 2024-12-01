@@ -2,7 +2,7 @@ import PlantManager from "./PlantController.ts";
 // import TimeManager from "./TimeController.ts";
 import { loadGameState, saveGameState } from "../util/Storage.ts";
 import Action from "../util/Action.ts";
-import query from '../util/json/scenario.json' with {type: "json"}
+import query from "../util/json/scenario.json" with { type: "json" };
 
 export default class GameManager {
   public plantManager: PlantManager;
@@ -23,6 +23,7 @@ export default class GameManager {
 
   initGame() {
     document.addEventListener("nextTurnEvent", () => this.advanceTurn());
+
     this.loadSavedGame(); // load saved game TODO -> load a specific save
   }
 
@@ -40,7 +41,7 @@ export default class GameManager {
   // load game from local storage
   loadSavedGame() {
     if (!loadGameState(this.loadGameSlot)) { // loadGameState can return false
-      document.dispatchEvent(new Event('newGameEvent'))
+      document.dispatchEvent(new Event("newGameEvent"));
       this.turnCounter = 1; // so we set defaults
       this.currentLevel = 1; // so we set defaults
     } else { // otherwise we found some data
@@ -49,7 +50,7 @@ export default class GameManager {
         this.loadGameSlot,
       ) as [number, number, ArrayBuffer];
       this.plantManager.setPlantableCellBuffer(plantData); // set all the cells to the loaded data
-      this.plantManager.isLoading = false
+      this.plantManager.isLoading = false;
     }
   }
 
@@ -89,17 +90,18 @@ export default class GameManager {
     });
   }
 
-   generateSun(currentCell: Cell) {
+  generateSun(currentCell: Cell) {
     currentCell.planterBox.sunLevel = Math.floor(Math.random() * 6); // Random integer between 0 and 5
   }
-  
-   generateWater(currentCell: Cell) {
-    currentCell.planterBox.waterLevel += parseFloat((Math.random() * 3).toFixed(3)); // Random float between 0 and 3, rounded to 3 decimals
+
+  generateWater(currentCell: Cell) {
+    currentCell.planterBox.waterLevel += parseFloat(
+      (Math.random() * 3).toFixed(3),
+    ); // Random float between 0 and 3, rounded to 3 decimals
     if (currentCell.planterBox.waterLevel >= 5) {
       currentCell.planterBox.waterLevel = 5; // Cap the water level at 5
     }
   }
-  
 
   // deals with beating a level
   handleCompleteLevel() {

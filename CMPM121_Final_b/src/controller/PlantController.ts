@@ -1,23 +1,23 @@
-import {GAME_CONFIG, plantGrowthLevel} from "../util/GameConfig.ts";
+import { GAME_CONFIG, plantGrowthLevel } from "../util/GameConfig.ts";
 
-export default class PlantManager implements Renderable{
+export default class PlantManager implements Renderable {
   private plantableCellsBuffer: ArrayBuffer; // updated storage mech
   private plantableCellsView: DataView; // used to set,get from array buffer
-  public isLoading: boolean
+  public isLoading: boolean;
   constructor() {
     this.plantableCellsBuffer = new ArrayBuffer( // init a new buffer
       GAME_CONFIG.STORAGE.CELL_SIZE_IN_BYTES *
         GAME_CONFIG.STORAGE.CELLS_IN_GRID,
     );
     this.plantableCellsView = new DataView(this.plantableCellsBuffer); // tie view to buffer
-    this.isLoading = true
+    this.isLoading = true;
 
     document.addEventListener("newGameEvent", () => {
-      console.log('new game')
+      console.log("new game");
       let planterBoxX = 50;
-      const planterBoxY = 110
+      const planterBoxY = 110;
       let count = 0;
-      do{
+      do {
         this.addPlantableCell(count, {
           i: planterBoxX,
           j: planterBoxY,
@@ -31,11 +31,10 @@ export default class PlantManager implements Renderable{
           },
         });
         count += 1;
-        planterBoxX += 25
-      }while (count < 8);
-      this.isLoading = false
+        planterBoxX += 25;
+      } while (count < 8);
+      this.isLoading = false;
     });
-
   }
 
   // getter for buffer
@@ -53,7 +52,7 @@ export default class PlantManager implements Renderable{
   // updatePlantGrowth(cell: Cell) {
   //   const { plant, sunLevel, waterLevel } = cell.planterBox; // destructure from main obj
   //   if (plant.species === "none") return; // if there isnt a plant here then move on
-    
+
   //   // TODO Fix laod
   //   const plantRules = this.scene.cache.json.get(
   //     "plantGrowthReq",
@@ -196,12 +195,12 @@ export default class PlantManager implements Renderable{
     return plantableCells;
   }
 
-  display(ctx?: CanvasRenderingContext2D){
-    if(!ctx) return
-    ctx.fillStyle = '#826A3B'
-    const asCells = this.getAllPlantableCells()
-    for(const cell of asCells){
-      ctx.fillRect(cell.i, cell.j, 12, 12)
+  display(ctx?: CanvasRenderingContext2D) {
+    if (!ctx) return;
+    ctx.fillStyle = "#826A3B";
+    const asCells = this.getAllPlantableCells();
+    for (const cell of asCells) {
+      ctx.fillRect(cell.i, cell.j, 12, 12);
     }
   }
 }
