@@ -1,7 +1,7 @@
 import { GAME_CONFIG } from "../util/GameConfig.ts";
 const playerSrc = new URL("../assets/player/player.png", import.meta.url).href;
 
-export default class Player {
+export default class Player implements Renderable {
     private image: HTMLImageElement;
     private ctx!: CanvasRenderingContext2D;
     private playerPos: PlayerPostionData;

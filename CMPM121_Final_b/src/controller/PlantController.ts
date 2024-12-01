@@ -1,6 +1,6 @@
 import {GAME_CONFIG, plantGrowthLevel} from "../util/GameConfig.ts";
 
-export default class PlantManager {
+export default class PlantManager implements Renderable{
   private plantableCellsBuffer: ArrayBuffer; // updated storage mech
   private plantableCellsView: DataView; // used to set,get from array buffer
   public isLoading: boolean
@@ -196,7 +196,7 @@ export default class PlantManager {
     return plantableCells;
   }
 
-  display(ctx: CanvasRenderingContext2D){
+  display(ctx?: CanvasRenderingContext2D){
     if(!ctx) return
     ctx.fillStyle = '#826A3B'
     const asCells = this.getAllPlantableCells()

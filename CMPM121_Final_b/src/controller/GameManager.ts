@@ -2,6 +2,7 @@ import PlantManager from "./PlantController.ts";
 // import TimeManager from "./TimeController.ts";
 import { loadGameState, saveGameState } from "../util/Storage.ts";
 import Action from "../util/Action.ts";
+import query from '../util/json/scenario.json' with {type: "json"}
 
 export default class GameManager {
   public plantManager: PlantManager;
@@ -62,7 +63,7 @@ export default class GameManager {
   }
 
   initGame() {
-    // this.scene.events.on("nextTurnEvent", () => this.advanceTurn());
+    document.addEventListener("nextTurnEvent", () => this.advanceTurn());
     // set up game
     this.loadSavedGame(); // load saved game TODO -> load a specific save
   }
@@ -121,7 +122,7 @@ export default class GameManager {
     // }
 
     // query level status
-    // this.handleCompleteLevel();
+    this.handleCompleteLevel();
 
     // save game
     this.saveGame();
@@ -149,45 +150,44 @@ export default class GameManager {
   }
   
 
-//   // deals with beating a level
-//   handleCompleteLevel() {
-//     // const query = this.scene.cache.json.get("scenario") as LevelsData;
-//     const levelRequirement = query.levels.find((e) =>
-//       e.levelNum === this.currentLevel
-//     )?.requirements;
-//     if (!levelRequirement) {
-//       console.log("wtf this is bad");
-//       return;
-//     }
+  // deals with beating a level
+  handleCompleteLevel() {
+    const levelRequirement = query.levels.find((e) =>
+      e.levelNum === this.currentLevel
+    )?.requirements;
+    if (!levelRequirement) {
+      console.log("wtf this is bad");
+      return;
+    }
 
-//     // Convert the plant requirements to an array
-//     const plants = Object.entries(levelRequirement.plants); // We use `Object.entries` to get both the plant name and the requirement
+    // Convert the plant requirements to an array
+    const plants = Object.entries(levelRequirement.plants); // We use `Object.entries` to get both the plant name and the requirement
 
-//     for (const [species, x] of plants) {
-//       // Check if there's a planter box that matches the growth level of this plant
-//       const hasMatchingGrowthLevel = this.plantManager.getAllPlantableCells()
-//         .find((e) => e.planterBox.plant.growthLevel === x.growthLevel);
+    for (const [species, x] of plants) {
+      // Check if there's a planter box that matches the growth level of this plant
+      const hasMatchingGrowthLevel = this.plantManager.getAllPlantableCells()
+        .find((e) => e.planterBox.plant.growthLevel === x.growthLevel);
 
-//       if (!hasMatchingGrowthLevel) {
-//         console.log("no plant found at correct growth level ");
-//         return;
-//       }
+      if (!hasMatchingGrowthLevel) {
+        console.log("no plant found at correct growth level ");
+        return;
+      }
 
-//       // Find the plantable cells that match the species name (e.g., "Flytrap")
-//       const matchingCells =
-//         this.plantManager.getAllPlantableCells().filter((e) =>
-//           e.planterBox.plant.species === species
-//         ).length;
+      // Find the plantable cells that match the species name (e.g., "Flytrap")
+      const matchingCells =
+        this.plantManager.getAllPlantableCells().filter((e) =>
+          e.planterBox.plant.species === species
+        ).length;
 
-//       if (matchingCells !== x.ammount) {
-//         console.log("not enough plants for level to beat");
-//         return;
-//       }
+      if (matchingCells !== x.ammount) {
+        console.log("not enough plants for level to beat");
+        return;
+      }
 
-//       // Now, you can handle the matching cells for the current species (e.g., Flytrap)
-//       console.log(
-//         `Found ${matchingCells} plantable cells for ${species} with growth level ${x.growthLevel}, LEVEL COMPLETE!`,
-//       );
-//     }
-//   }
+      // Now, you can handle the matching cells for the current species (e.g., Flytrap)
+      console.log(
+        `Found ${matchingCells} plantable cells for ${species} with growth level ${x.growthLevel}, LEVEL COMPLETE!`,
+      );
+    }
+  }
 }

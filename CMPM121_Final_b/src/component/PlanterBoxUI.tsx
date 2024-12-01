@@ -32,6 +32,8 @@ const PlanterBoxUI: React.FC<BoxUIProps> = ({ plantManager }) => {
                         <p>Cell j: {cell.j}</p>
                         <p>Water Level {cell.planterBox.waterLevel}</p>
                         <p>Sun Level {cell.planterBox.sunLevel}</p>
+                        <p>Plant Species: {cell.planterBox.plant.species}</p>
+                        <p>Growth Level: {cell.planterBox.plant.growthLevel}</p>
                     </>
                 )
                 : <p>No cell selected</p>}

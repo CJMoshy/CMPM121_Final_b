@@ -1,7 +1,7 @@
 import "./App.css";
 // @deno-types="@types/react"
 
-import Engine from "./component/RenderingEngine.tsx";
+import RenderingEngine from "./component/RenderingEngine.tsx";
 import PlayerController from "./component/PlayerController.tsx";
 import GameController from "./component/GameController.tsx"; // react component
 import GameManager from "./controller/GameManager.ts"; // ts class that does the lifting
@@ -28,7 +28,7 @@ function App() {
   return (
     <>
         <CellContext.Provider value={{ selectedCell, setSelectedCell }}>
-          <Engine plantManager={plantManager}/>
+          <RenderingEngine plantManager={plantManager}/>
           <PlayerController />
           <GameController />
           <PlantableUI plantManager={plantManager}/>

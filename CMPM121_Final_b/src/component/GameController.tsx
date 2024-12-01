@@ -1,14 +1,26 @@
+
+
 const GameController: React.FC = () => {
 
+    // const {selectedCell} = useContext(CellContext)
+
     const takeTurn = () => {
-        console.log('taking turn')
+        document.dispatchEvent(new Event('nextTurnEvent'))
     }
 
     const reap = () => {
+        // if(!selectedCell){
+        //     console.log('no cell selected')
+        // } 
+        // console.log(selectedCell)
         console.log('reap')
     }   
 
     const sow = () => {
+        // if(!selectedCell){
+        //     console.log('no cell selected')
+        // }
+        // console.log(selectedCell)
         console.log('sow')
     }
 

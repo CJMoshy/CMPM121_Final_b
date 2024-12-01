@@ -8,7 +8,7 @@ interface EngineProps{
     plantManager: PlantManager
 }
 
-const Engine: React.FC<EngineProps> = ({plantManager}) => {
+const RenderingEngine: React.FC<EngineProps> = ({plantManager}) => {
 
     // Create a reference to the canvas element
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -50,4 +50,4 @@ const Engine: React.FC<EngineProps> = ({plantManager}) => {
 };
 
 
-export default Engine;
+export default RenderingEngine;
