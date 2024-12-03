@@ -8,8 +8,9 @@
     "npm:@vitejs/plugin-react@^4.3.4": "4.3.4_vite@6.0.1_@babel+core@7.26.0",
     "npm:react-dom@^18.3.1": "18.3.1_react@18.3.1",
     "npm:react@^18.3.1": "18.3.1",
-    "npm:vite@*": "6.0.1",
-    "npm:vite@^6.0.1": "6.0.1"
+    "npm:vite@*": "6.0.1_@types+node@22.5.4",
+    "npm:vite@6.0.1": "6.0.1_@types+node@22.5.4",
+    "npm:vite@^6.0.1": "6.0.1_@types+node@22.5.4"
   },
   "npm": {
     "@ampproject/remapping@2.3.0": {
@@ -656,6 +657,16 @@
     "vite@6.0.1": {
       "integrity": "sha512-Ldn6gorLGr4mCdFnmeAOLweJxZ34HjKnDm4HGo6P66IEqTxQb36VEdFJQENKxWjupNfoIjvRUnswjn1hpYEpjQ==",
       "dependencies": [
+        "esbuild@0.24.0",
+        "fsevents",
+        "postcss",
+        "rollup"
+      ]
+    },
+    "vite@6.0.1_@types+node@22.5.4": {
+      "integrity": "sha512-Ldn6gorLGr4mCdFnmeAOLweJxZ34HjKnDm4HGo6P66IEqTxQb36VEdFJQENKxWjupNfoIjvRUnswjn1hpYEpjQ==",
+      "dependencies": [
+        "@types/node",
         "esbuild@0.24.0",
         "fsevents",
         "postcss",
