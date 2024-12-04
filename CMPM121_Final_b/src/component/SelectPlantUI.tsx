@@ -14,16 +14,22 @@ const SelectPlantUI: React.FC<SelectPlantUIProp> = ({ plants }) => {
   };
 
   const getPlantTypesAsHTML = () => {
-    return (plants.map((element: PlantType) => (
-      <option key={element.plantType} value={element.plantType}>
-        {element.plantType}
-      </option>
-    )));
+    return (
+      <>
+        <option value="">
+          -- Select a plant species --
+        </option>
+        {plants.map((element: PlantType) => (
+          <option key={element.plantType} value={element.plantType}>
+            {element.plantType}
+          </option>
+        ))}
+      </>
+    );
   };
-
   return (
     <div className="plant-select-ui">
-      <h3>Select a Plant Species</h3>
+      <h3>Plant Species</h3>
       <form>
         <select id="plants" value={selectedPlant} onChange={handlePlantChange}>
           {getPlantTypesAsHTML()}

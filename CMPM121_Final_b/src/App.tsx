@@ -114,8 +114,8 @@ function App() {
             <GameController plantManager={plantManager} />
             <SaveNLoad gameManager={gameManager} />
             <UndoRedo cmdPipe={cmdPipeline} />
-            <PlantableUI plantManager={plantManager} />
             <SelectPlantUI plants={plants} />
+            <PlantableUI plantManager={plantManager} />
           </PlantContext.Provider>
         </CellContext.Provider>
       </CellIndexContext.Provider>

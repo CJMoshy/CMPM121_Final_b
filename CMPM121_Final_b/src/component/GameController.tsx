@@ -13,6 +13,7 @@ const GameController: React.FC<GCProps> = ({ plantManager }) => {
   const takeTurn = () => {
     document.dispatchEvent(new Event("gameStateAdvance"));
     document.dispatchEvent(new Event("nextTurnEvent"));
+    document.dispatchEvent(new Event("updateUI"));
   };
 
   const reap = () => {
