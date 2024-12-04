@@ -7,6 +7,7 @@ interface UndoRedoProps {
 const UndoRedo: React.FC<UndoRedoProps> = ({ cmdPipe }) => {
   const handleUndoRedo = (undo: boolean) => {
     undo ? cmdPipe.undo() : cmdPipe.redo();
+    document.dispatchEvent(new Event("updateUI"));
   };
   return (
     <div className="undo-redo-container">

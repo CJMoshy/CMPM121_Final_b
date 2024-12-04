@@ -51,6 +51,7 @@ export default class GameManager {
       ) as [number, number, ArrayBuffer];
       this.plantManager.setPlantableCellBuffer(plantData); // set all the cells to the loaded data
       this.plantManager.isLoading = false;
+      document.dispatchEvent(new Event("updateUI"));
     }
   }
 
