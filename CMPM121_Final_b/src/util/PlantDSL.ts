@@ -22,6 +22,7 @@ class PlantType {
   }
 
   evaluate(cell: Cell, proximity: number) {
+    if(this.growsWhen[cell.planterBox.plant.growthLevel]){
     return cell.planterBox.sunLevel >=
           this.growsWhen[cell.planterBox.plant.growthLevel].sunlevel &&
         cell.planterBox.waterLevel >=
@@ -29,6 +30,7 @@ class PlantType {
         proximity >= this.growsWhen[cell.planterBox.plant.growthLevel].proximity
       ? true
       : false;
+    }
   }
 }
 
