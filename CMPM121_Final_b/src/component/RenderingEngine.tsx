@@ -14,7 +14,7 @@ const RenderingEngine: React.FC<EngineProps> = ({ plantManager }) => {
   let ctx: CanvasRenderingContext2D;
 
   const player = new Player();
-
+  
   const gameLoop = () => {
     if (!ctx) return;
     ctx.clearRect(
@@ -23,7 +23,7 @@ const RenderingEngine: React.FC<EngineProps> = ({ plantManager }) => {
       GAME_CONFIG.canvas.width,
       GAME_CONFIG.canvas.height,
     );
-    ctx.fillStyle = "#7CFC00";
+    ctx.fillStyle = "#509462";
     ctx.fillRect(0, 0, GAME_CONFIG.canvas.width, GAME_CONFIG.canvas.height);
     plantManager.display(ctx);
     player.display();

@@ -201,6 +201,12 @@ export default class PlantManager implements Renderable {
     const asCells = this.getAllPlantableCells();
     for (const cell of asCells) {
       ctx.fillRect(cell.i, cell.j, 12, 12);
+      if(cell.planterBox.plant.species != "none"){
+        const plantSprite = new Image();
+        plantSprite.src = new URL("../assets/Plants/" + cell.planterBox.plant.species + "Level" + cell.planterBox.plant.growthLevel + ".png", import.meta.url).href;
+        // console.log(plantSprite.src);
+        ctx.drawImage(plantSprite, cell.i, cell.j, 12, 12);
+      }
     }
   }
 }
