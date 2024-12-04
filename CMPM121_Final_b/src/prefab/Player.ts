@@ -54,24 +54,19 @@ export default class Player implements Renderable {
       case "up":
         if (this.playerPos.dy <= 0) return;
         this.playerPos.dy -= movementInterval;
-        console.log("we go up");
         break;
       case "down":
         if (this.playerPos.dy >= GAME_CONFIG.player.heightBound) return;
-        console.log(this.playerPos.dy);
         this.playerPos.dy += movementInterval;
-        console.log("we go down");
         break;
       case "left":
         if (this.playerPos.dx <= 0) return;
         this.playerPos.dx -= movementInterval;
-        console.log("we go left");
         break;
 
       case "right":
         if (this.playerPos.dx >= GAME_CONFIG.player.widthBound) return;
         this.playerPos.dx += movementInterval;
-        console.log("we go right");
         break;
     }
     const { dx, dy } = this.playerPos;
@@ -79,16 +74,12 @@ export default class Player implements Renderable {
       if (!this.inPlantable) {
         this.inPlantable = true;
         document.dispatchEvent(new Event("enterPlantable"));
-        console.log("enter plantable");
       }
-      console.log("in plantable zone");
     } else {
       if (this.inPlantable) {
         this.inPlantable = false;
         document.dispatchEvent(new Event("exitPlantable"));
-        console.log("exit plantable");
       }
-      console.log("not in plantable zone");
     }
   }
 }

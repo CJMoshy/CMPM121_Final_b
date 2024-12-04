@@ -56,19 +56,13 @@ export default class GameManager {
 
   // logic for advancing turn
   advanceTurn() {
-    //once we done updating we can pass the old game state and the new game state to the command piepiellk
-    // this.scene.events.emit( // emit an event that game state is advancing
-    //   "gameStateAdvance",
-    //   "nextTurn",
-    // );
-
     this.turnCounter += 1;
     const asCells = this.plantManager.getAllPlantableCells(); // get all cells as Cell[] type for easy manip
     let arrayBufferOffset = 0; // this is needed for the arraybuffer
     asCells.forEach((cell: Cell) => {
       this.generateSun(cell);
       this.generateWater(cell);
-      // this.plantManager.updatePlantGrowth(cell);
+      cell = this.plantManager.updatePlantGrowth(cell, arrayBufferOffset);
       this.plantManager.addPlantableCell(arrayBufferOffset, cell); // write to the buffer the updated cells
       arrayBufferOffset += 1;
     });

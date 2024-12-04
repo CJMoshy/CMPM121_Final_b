@@ -13,7 +13,7 @@ const PlanterBoxUI: React.FC<BoxUIProps> = ({ plantManager }) => {
     // Update the state whenever selectedCell changes
     if (plantManager.isLoading === false) {
       const allCells = plantManager.getAllPlantableCells();
-      console.log(allCells);
+      // console.log(allCells);
       setCell(allCells.at(selectedCellIndex - 1));
     } else {
       console.log("planterbox is still loading");

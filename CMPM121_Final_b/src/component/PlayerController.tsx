@@ -6,16 +6,18 @@ const PlayerController: React.FC = () => {
 
   return (
     <div className="player-controls-container">
-      <button id="move-up-btn" onClick={() => handleMove("up")}>UP</button>
-      <button id="move-down-btn" onClick={() => handleMove("down")}>
-        DOWN
-      </button>
+      <button id="move-up-btn" onClick={() => handleMove("up")}>UP</button> 
+      <div>
       <button id="move-left-btn" onClick={() => handleMove("left")}>
         LEFT
+      </button>
+      <button id="move-down-btn" onClick={() => handleMove("down")}>
+        DOWN
       </button>
       <button id="move-right-btn" onClick={() => handleMove("right")}>
         RIGHT
       </button>
+      </div>
     </div>
   );
 };

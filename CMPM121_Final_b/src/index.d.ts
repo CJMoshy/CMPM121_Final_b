@@ -21,7 +21,7 @@ interface PlanterBox {
   plant: Plant;
 }
 
-type PlantSpecies = "Flytrap" | "Wheat" | "Aloe Vera" | "none";
+type PlantSpecies = string;
 
 interface Plant {
   species: PlantSpecies;
