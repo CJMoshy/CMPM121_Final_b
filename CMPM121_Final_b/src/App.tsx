@@ -81,6 +81,7 @@ const handleGameStateAdv = () => {
       new Uint8Array(plantManager.getPlantableCellBuffer()),
     ),
   };
+  cmdPipeline.clearRedoStack();
   cmdPipeline.addCommand(new Action(state));
   cmdPipeline.saveToLocalStorage();
 };

@@ -41,6 +41,10 @@ export default class CommandPipeline {
     action.execute(this.gameManager);
   }
 
+  clearRedoStack(){
+    this.redoStack.length = 0;
+  }
+
   saveToLocalStorage() {
     const actionStackState = [];
     const redoStackState = [];
