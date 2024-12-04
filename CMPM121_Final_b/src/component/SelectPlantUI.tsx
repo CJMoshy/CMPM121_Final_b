@@ -1,11 +1,24 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { PlantContext } from "../Context.ts";
+import PlantType from "../util/PlantDSL.ts";
 
-const SelectPlantUI: React.FC = () => {
+interface SelectPlantUIProp {
+  plants: PlantType[];
+}
+
+const SelectPlantUI: React.FC<SelectPlantUIProp> = ({ plants }) => {
   const { selectedPlant, setSelectedPlant } = useContext(PlantContext);
 
   const handlePlantChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedPlant(event.target.value as PlantSpecies);
+  };
+
+  const getPlantTypesAsHTML = () => {
+    return (plants.map((element: PlantType) => (
+      <option key={element.plantType} value={element.plantType}>
+        {element.plantType}
+      </option>
+    )));
   };
 
   return (
@@ -13,9 +26,7 @@ const SelectPlantUI: React.FC = () => {
       <h3>Select a Plant Species</h3>
       <form>
         <select id="plants" value={selectedPlant} onChange={handlePlantChange}>
-          <option value="Wheat">Wheat</option>
-          <option value="Aloe Vera">Aloe Vera</option>
-          <option value="Flytrap">Flytrap</option>
+          {getPlantTypesAsHTML()}
         </select>
       </form>
     </div>

@@ -16,13 +16,11 @@ const PlantableUI: React.FC<PlantableUIProps> = ({ plantManager }) => {
   useEffect(() => {
     // Event listener for 'enterPlantable'
     const handleEnterPlantable = () => {
-      console.log("listener for enter plantable");
       setIsVisible(true); // Set visibility to true when enterPlantable event occurs
     };
 
     // Event listener for 'exitPlantable'
     const handleExitPlantable = () => {
-      console.log("listener for exit plantable");
       setIsVisible(false); // Set visibility to false when exitPlantable event occurs
       setSelectedCellIndex(undefined);
     };

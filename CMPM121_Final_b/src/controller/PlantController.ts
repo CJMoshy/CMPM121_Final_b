@@ -1,26 +1,38 @@
 import { GAME_CONFIG, plantGrowthLevel } from "../util/GameConfig.ts";
-
+import PlantType from "../util/PlantDSL.ts";
 export default class PlantManager implements Renderable {
   private plantableCellsBuffer: ArrayBuffer; // updated storage mech
   private plantableCellsView: DataView; // used to set,get from array buffer
   public isLoading: boolean;
-  constructor() {
+  private plants: PlantType[];
+  public plantBoxLocations: [number, number][];
+  constructor(plantDSL: PlantType[]) {
+    this.plantBoxLocations = [
+      [50, 110],
+      [75, 110],
+      [100, 110],
+      [125, 110],
+      [150, 110],
+      [175, 110],
+      [200, 110],
+      [225, 110],
+    ];
+    this.plants = plantDSL;
     this.plantableCellsBuffer = new ArrayBuffer( // init a new buffer
       GAME_CONFIG.STORAGE.CELL_SIZE_IN_BYTES *
         GAME_CONFIG.STORAGE.CELLS_IN_GRID,
     );
+
     this.plantableCellsView = new DataView(this.plantableCellsBuffer); // tie view to buffer
     this.isLoading = true;
 
     document.addEventListener("newGameEvent", () => {
       console.log("new game");
-      let planterBoxX = 50;
-      const planterBoxY = 110;
       let count = 0;
       do {
         this.addPlantableCell(count, {
-          i: planterBoxX,
-          j: planterBoxY,
+          i: this.plantBoxLocations[count][0],
+          j: this.plantBoxLocations[count][1],
           planterBox: {
             waterLevel: 0,
             sunLevel: 0,
@@ -31,7 +43,6 @@ export default class PlantManager implements Renderable {
           },
         });
         count += 1;
-        planterBoxX += 25;
       } while (count < 8);
       this.isLoading = false;
     });
@@ -48,49 +59,64 @@ export default class PlantManager implements Renderable {
     this.plantableCellsView = new DataView(buf);
   }
 
+  getEnumeratedPlantTypes() {
+    //deno-lint-ignore no-explicit-any
+    const plantEnum: any = {
+      "none": 0,
+    };
+    let count = 1;
+    this.plants.forEach((plant) => {
+      const plantType = plant.plantType;
+      plantEnum[plantType] = count++;
+    });
+    return plantEnum;
+  }
   // // works on cell type, must be deserialized from arraybuf
-  // updatePlantGrowth(cell: Cell) {
-  //   const { plant, sunLevel, waterLevel } = cell.planterBox; // destructure from main obj
-  //   if (plant.species === "none") return; // if there isnt a plant here then move on
+  updatePlantGrowth(cell: Cell, index: number): Cell {
+    if (cell.planterBox.plant.species === "none") {
+      console.log("no plant to grow");
+      return cell;
+    }
+    const { planterBox } = cell;
+    const plantRef = this.plants.find((e) =>
+      e.plantType === cell.planterBox.plant.species
+    )!;
+    if (
+      plantRef.evaluate(cell, this.getNearbyPlants())
+    ) {
+      console.log("plant Grew, index: ", index);
 
-  //   // TODO Fix laod
-  //   const plantRules = this.scene.cache.json.get(
-  //     "plantGrowthReq",
-  //   ) as PlantsData;
-  //   const rule = plantRules.plants.find((p) => p.name === plant.species); // get the specific growth rule for this plant type
+      let newSunLevel = planterBox.sunLevel -
+        plantRef.growsWhen[planterBox.plant.growthLevel].sunlevel;
+      if (newSunLevel < 0) {
+        newSunLevel = 0;
+      }
 
-  //   if (!rule) return; // if we didnt find a rule then dip
+      let newWaterLevel = planterBox.waterLevel -
+        plantRef.growsWhen[planterBox.plant.growthLevel].waterlevel;
 
-  //   // find which stage of the rule to query the plant wiht
-  //   let _required;
-  //   switch (plant.growthLevel) {
-  //     case 0:
-  //       _required = rule.grow.seedling;
-  //       break;
-  //     case 1:
-  //       _required = rule.grow.sapling;
-  //       break;
-  //     case 2:
-  //       _required = rule.grow.adult;
-  //       break;
-  //     default:
-  //       return;
-  //   }
+      if (newWaterLevel < 0) {
+        newWaterLevel = 0;
+      }
 
-  //   // query the plants
-  //   if (
-  //     this.getNearbyPlants() >= _required.proximity &&
-  //     sunLevel >= _required.sunlevel &&
-  //     waterLevel >= _required.waterlevel
-  //   ) {
-  //     cell.planterBox.plant.growthLevel++;
-  //     cell.planterBox.sunLevel -= _required.sunlevel;
-  //     cell.planterBox.waterLevel -= _required.waterlevel;
-  //   }
-  // }
+      cell = {
+        ...cell,
+        planterBox: {
+          sunLevel: newSunLevel,
+          waterLevel: newWaterLevel,
+          plant: {
+            ...cell.planterBox.plant,
+            growthLevel: cell.planterBox.plant.growthLevel + 1,
+          },
+        },
+      };
+    }
+    console.log(cell);
+    return cell;
+  }
 
   // helper to get plants near the current plant
-  getNearbyPlants(): number {
+  public getNearbyPlants(): number {
     return this.getAllPlantableCells().filter((cell) =>
       cell.planterBox.plant.species !== "none"
     ).length - 1; // 'this' plant shouldnt be counted TODO FIX
@@ -120,6 +146,7 @@ export default class PlantManager implements Renderable {
     incrementByteOffset(1);
 
     // growth level
+    console.log(cell.planterBox.plant.growthLevel);
     this.plantableCellsView.setUint8(
       byteOffset,
       cell.planterBox.plant.growthLevel,
@@ -127,12 +154,7 @@ export default class PlantManager implements Renderable {
     incrementByteOffset(1);
 
     // map the plant names to numbers for less storage space
-    const PlantSpeciesEnum = {
-      "none": 0,
-      "Flytrap": 1,
-      "Wheat": 2,
-      "Aloe Vera": 3,
-    };
+    const PlantSpeciesEnum = this.getEnumeratedPlantTypes();
     this.plantableCellsView.setUint8(
       byteOffset,
       PlantSpeciesEnum[cell.planterBox.plant.species],
@@ -161,17 +183,14 @@ export default class PlantManager implements Renderable {
     incrementByteOffset(1);
 
     const speciesIndex = this.plantableCellsView.getUint8(byteOffset);
-    const plantSpeciesEnumReverse: PlantSpecies[] = [
-      "none",
-      "Flytrap",
-      "Wheat",
-      "Aloe Vera",
-    ];
 
-    const species = plantSpeciesEnumReverse[speciesIndex];
+    let species;
+    if (speciesIndex === 0) {
+      species = "none";
+    } else species = this.plants[speciesIndex - 1].plantType;
     incrementByteOffset(1);
 
-    // returns a cell associated with the given index
+    console.log(growthLevel);
     return {
       i,
       j,
@@ -196,11 +215,10 @@ export default class PlantManager implements Renderable {
   }
 
   display(ctx?: CanvasRenderingContext2D) {
-    if (!ctx) return;
+    if (!ctx || !this.plantBoxLocations) return;
     ctx.fillStyle = "#826A3B";
-    const asCells = this.getAllPlantableCells();
-    for (const cell of asCells) {
-      ctx.fillRect(cell.i, cell.j, 12, 12);
+    for (const location of this.plantBoxLocations) {
+      ctx.fillRect(location[0], location[1], 12, 12);
     }
   }
 }
