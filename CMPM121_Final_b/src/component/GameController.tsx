@@ -10,7 +10,7 @@ const GameController: React.FC<GCProps> = ({ plantManager }) => {
   const { cell, setCell } = useContext(CellContext);
   const { selectedPlant } = useContext(PlantContext);
 
-  const takeTurn = () => {
+  const takeTurn = () => { // fix this
     document.dispatchEvent(new Event("gameStateAdvance"));
     document.dispatchEvent(new Event("nextTurnEvent"));
     document.dispatchEvent(new Event("updateUI"));

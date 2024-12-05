@@ -100,13 +100,9 @@ export default class GameManager {
 
   // deals with beating a level
   handleCompleteLevel() {
-    const levelRequirement = query.levels.find((e) =>
+    const levelRequirement = (query as LevelsData).levels.find((e) =>
       e.levelNum === this.currentLevel
-    )?.requirements;
-    if (!levelRequirement) {
-      console.log("wtf this is bad");
-      return;
-    }
+    )!.requirements;
 
     // Convert the plant requirements to an array
     const plants = Object.entries(levelRequirement.plants); // We use `Object.entries` to get both the plant name and the requirement
@@ -127,7 +123,7 @@ export default class GameManager {
           e.planterBox.plant.species === species
         ).length;
 
-      if (matchingCells !== x.ammount) {
+      if (matchingCells !== x.amount) {
         console.log("not enough plants for level to beat");
         return;
       }

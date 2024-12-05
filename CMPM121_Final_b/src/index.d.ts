@@ -26,7 +26,6 @@ type PlantSpecies = string;
 interface Plant {
   species: PlantSpecies;
   growthLevel: number;
-  // sprite: Phaser.GameObjects.Sprite | undefined;
 }
 
 interface GrowthStage {
@@ -35,21 +34,8 @@ interface GrowthStage {
   proximity: number;
 }
 
-interface JsonPlant {
-  name: string;
-  grow: {
-    seedling: GrowthStage;
-    sapling: GrowthStage;
-    adult: GrowthStage;
-  };
-}
-
-interface PlantsData {
-  plants: JsonPlant[];
-}
-
 interface PlantRequirement {
-  ammount: number;
+  amount: number;
   growthLevel: number;
 }
 
@@ -77,8 +63,3 @@ interface AbstractGameCommand {
   executeRedo: () => void;
 }
 
-type executeUndo = string;
-type executeRedo = string;
-type undoFunc = string;
-type redoFunc = string;
-type CommandPipelineSave = [[executeUndo, undoFunc], [executeRedo, redoFunc]];

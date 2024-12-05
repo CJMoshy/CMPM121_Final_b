@@ -1,24 +1,22 @@
 import { GAME_CONFIG } from "../util/GameConfig.ts";
 const playerSrc = new URL("../assets/player/player.png", import.meta.url).href;
 
+const INITIALPLAYERX = 30;
+const INITIALPLAYERY = 70;
 export default class Player implements Renderable {
   private image: HTMLImageElement;
   private ctx!: CanvasRenderingContext2D;
   private playerPos: PlayerPostionData;
   private inPlantable: boolean;
-  private PLAYERX: number;
-  private PLAYERY: number;
   constructor() {
     // image logic
     this.image = new Image();
     this.image.src = playerSrc;
     this.image.onload = () => this.display();
-    this.PLAYERX = 30;
-    this.PLAYERY = 70;
 
     this.playerPos = {
-      dx: this.PLAYERX,
-      dy: this.PLAYERY,
+      dx: INITIALPLAYERX,
+      dy: INITIALPLAYERY,
     };
 
     document.addEventListener(
@@ -83,16 +81,3 @@ export default class Player implements Renderable {
     }
   }
 }
-
-// const img = new Image();
-// img.src = 'spritesheet.png'; // Path to your spritesheet
-// img.onload = () => {
-//   // Step 2: Get canvas and context
-//   const canvas = document.getElementById('canvas');
-//   const ctx = canvas.getContext('2d');
-
-//   // Step 3: Specify the position and size of the frame to extract
-//   const frameWidth = 100;  // Width of one frame
-//   const frameHeight = 100; // Height of one frame
-//   const frameX = 0;        // X position of the frame in the spritesheet (horizontal offset)
-//   const frameY = 0;        // Y position of the frame in the spritesheet (vertical offset)

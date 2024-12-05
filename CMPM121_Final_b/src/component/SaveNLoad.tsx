@@ -8,7 +8,7 @@ const SaveNLoad: React.FC<SNLComp> = ({ gameManager }) => {
     event: React.ChangeEvent<HTMLSelectElement>,
     save: boolean,
   ) => {
-    const toNum = Number(event.target.value);
+    const toNum = Number(event.target.value); // what is this??? bad name
     save ? gameManager.savedGameSlot = toNum : gameManager.loadGameSlot = toNum;
     console.log(gameManager.savedGameSlot, gameManager.loadGameSlot);
   };
