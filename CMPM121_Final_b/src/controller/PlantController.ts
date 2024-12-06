@@ -30,9 +30,10 @@ export default class PlantManager implements Renderable {
       console.log("new game");
       let count = 0;
       do {
+        const [i, j] = this.plantBoxLocations[count];
         this.addPlantableCell(count, {
-          i: this.plantBoxLocations[count][0],
-          j: this.plantBoxLocations[count][1],
+          i,
+          j,
           planterBox: {
             waterLevel: 0,
             sunLevel: 0,
@@ -87,13 +88,13 @@ export default class PlantManager implements Renderable {
       console.log("plant Grew, index: ", index);
 
       let newSunLevel = planterBox.sunLevel -
-        plantRef.growsWhen[planterBox.plant.growthLevel].sunlevel;
+        plantRef.growthStages[planterBox.plant.growthLevel].sunlevel;
       if (newSunLevel < 0) {
         newSunLevel = 0;
       }
 
       let newWaterLevel = planterBox.waterLevel -
-        plantRef.growsWhen[planterBox.plant.growthLevel].waterlevel;
+        plantRef.growthStages[planterBox.plant.growthLevel].waterlevel;
 
       if (newWaterLevel < 0) {
         newWaterLevel = 0;
@@ -161,7 +162,7 @@ export default class PlantManager implements Renderable {
     );
     incrementByteOffset(1);
   }
-
+  // cani make these smaller
   // deserialization method for a given cell
   getPlantableCell(index: number): Cell {
     const offset = index * GAME_CONFIG.STORAGE.CELL_SIZE_IN_BYTES; // where in the buffer we at
@@ -202,7 +203,7 @@ export default class PlantManager implements Renderable {
           growthLevel,
         },
       },
-    };
+    } as Cell;
   }
 
   // get all indexes as a Cell[]
@@ -221,11 +222,18 @@ export default class PlantManager implements Renderable {
       ctx.fillRect(location[0], location[1], 12, 12);
       const plantableCell = this.getAllPlantableCells().find((
         cell,
-      ) => cell.i === location[0].valueOf() && cell.j === location[1].valueOf());
+      ) =>
+        cell.i === location[0].valueOf() && cell.j === location[1].valueOf()
+      );
 
-      if(plantableCell && plantableCell.planterBox.plant.species != "none"){
+      if (plantableCell && plantableCell.planterBox.plant.species != "none") {
         const plantSprite = new Image();
-        plantSprite.src = new URL("../assets/Plants/" + plantableCell.planterBox.plant.species + "Level" + plantableCell.planterBox.plant.growthLevel + ".png", import.meta.url).href;
+        plantSprite.src =
+          new URL(
+            "../assets/Plants/" + plantableCell.planterBox.plant.species +
+              "Level" + plantableCell.planterBox.plant.growthLevel + ".png",
+            import.meta.url,
+          ).href;
         // console.log(plantSprite.src);
         ctx.drawImage(plantSprite, location[0], location[1], 12, 12);
       }

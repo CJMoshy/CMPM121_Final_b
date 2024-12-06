@@ -1,12 +1,12 @@
 class PlantType {
   private static existingPlants = new Set<string>();
   public readonly plantType: string;
-  public growsWhen!: GrowthStage[];
+  public growthStages!: GrowthStage[];
 
-  static create(name: string) {
+  static named(name: string): PlantType {
     if (PlantType.existingPlants.has(name)) {
       console.warn(`PlantType "${name}" already exists. Ignoring duplicate.`);
-      return;
+      throw new Error('dup plant name')
     }
     PlantType.existingPlants.add(name);
     return new PlantType(name);
@@ -16,18 +16,18 @@ class PlantType {
     this.plantType = name;
   }
 
-  setGrowsWhen(condtion: GrowthStage[]) {
-    this.growsWhen = condtion;
+  growsWhen(condtion: GrowthStage[]) {
+    this.growthStages = condtion;
     return this;
   }
 
   evaluate(cell: Cell, proximity: number) {
-    if(this.growsWhen[cell.planterBox.plant.growthLevel]){
+    if(this.growthStages[cell.planterBox.plant.growthLevel]){
     return cell.planterBox.sunLevel >=
-          this.growsWhen[cell.planterBox.plant.growthLevel].sunlevel &&
+          this.growthStages[cell.planterBox.plant.growthLevel].sunlevel &&
         cell.planterBox.waterLevel >=
-          this.growsWhen[cell.planterBox.plant.growthLevel].waterlevel &&
-        proximity >= this.growsWhen[cell.planterBox.plant.growthLevel].proximity
+          this.growthStages[cell.planterBox.plant.growthLevel].waterlevel &&
+        proximity >= this.growthStages[cell.planterBox.plant.growthLevel].proximity
       ? true
       : false;
     }

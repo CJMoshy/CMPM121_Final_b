@@ -20,7 +20,7 @@ export function loadGameState(
     console.log("no game state saved");
     return false;
   }
-  const parsed: GameState = JSON.parse(gameState);
+  const parsed: GameState = JSON.parse(gameState); // maybe rename this
   const toArrBuf = new Uint8Array(parsed.plantData).buffer;
   return [parsed.currentLevel, parsed.currentTurn, toArrBuf];
 }

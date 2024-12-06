@@ -12,60 +12,9 @@ import UndoRedo from "./component/UndoRedo.tsx";
 import PlantManager from "./controller/PlantController.ts";
 import CommandPipeline from "./util/CommandPipeline.ts";
 import Action from "./util/Action.ts";
-import PlantType from "./util/PlantDSL.ts";
 import { CellContext, CellIndexContext, PlantContext } from "./Context.ts";
 import { useEffect, useState } from "react";
-
-// set up plant dsl
-const plants: PlantType[] = [];
-
-plants.push(
-  PlantType.create("Wheat")!.setGrowsWhen([
-    {
-      sunlevel: 3,
-      waterlevel: 2,
-      proximity: 1,
-    },
-    { sunlevel: 5, waterlevel: 3, proximity: 3 },
-    {
-      sunlevel: 5,
-      waterlevel: 4,
-      proximity: 5,
-    },
-  ]),
-);
-
-plants.push(
-  PlantType.create("Aloe Vera")!.setGrowsWhen([
-    {
-      sunlevel: 2,
-      waterlevel: 1,
-      proximity: 0,
-    },
-    { sunlevel: 4, waterlevel: 2, proximity: 1 },
-    {
-      sunlevel: 5,
-      waterlevel: 2,
-      proximity: 2,
-    },
-  ]),
-);
-
-plants.push(
-  PlantType.create("Flytrap")!.setGrowsWhen([
-    { sunlevel: 3, waterlevel: 1, proximity: 0 },
-    {
-      sunlevel: 4,
-      waterlevel: 3,
-      proximity: 0,
-    },
-    {
-      sunlevel: 5,
-      waterlevel: 5,
-      proximity: 2,
-    },
-  ]),
-);
+import {plants} from './util/PlantTypes.ts'
 
 const plantManager = new PlantManager(plants);
 const gameManager = new GameManager(plantManager);
