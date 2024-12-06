@@ -33,8 +33,6 @@ interface TranslateObject {
   [language: string]: LanguageTranslations;
 }
 
-
-
 interface Plant {
   species: PlantSpecies;
   growthLevel: number;
@@ -74,4 +72,3 @@ interface AbstractGameCommand {
   executeUndo: () => void;
   executeRedo: () => void;
 }
-

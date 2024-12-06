@@ -8,7 +8,9 @@ const PlayerController: React.FC = () => {
 
   return (
     <div className="player-controls-container">
-      <button id="move-up-btn" onClick={() => handleMove("up")}>{getTranslation("Up")}</button>
+      <button id="move-up-btn" onClick={() => handleMove("up")}>
+        {getTranslation("Up")}
+      </button>
       <div>
         <button id="move-left-btn" onClick={() => handleMove("left")}>
           {getTranslation("Left")}

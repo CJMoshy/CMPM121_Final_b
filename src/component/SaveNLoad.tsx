@@ -40,10 +40,16 @@ const SaveNLoad: React.FC<SNLComp> = ({ gameManager }) => {
         <option value="3">{getTranslation("Slot 3")}</option>
         <option value="4">{getTranslation("Slot 4")}</option>
       </select>
-      <button id="saveBtn" onClick={() => handleSaveLoad(true)}>{getTranslation("Save")}</button>
-      <button id="loadbtn" onClick={() => handleSaveLoad(false)}>{getTranslation("Load")}</button>
+      <button id="saveBtn" onClick={() => handleSaveLoad(true)}>
+        {getTranslation("Save")}
+      </button>
+      <button id="loadbtn" onClick={() => handleSaveLoad(false)}>
+        {getTranslation("Load")}
+      </button>
       <p>
-        {getTranslation("Game is automatically saved after every turn, but you can manually save at any point")}
+        {getTranslation(
+          "Game is automatically saved after every turn, but you can manually save at any point",
+        )}
       </p>
     </div>
   );

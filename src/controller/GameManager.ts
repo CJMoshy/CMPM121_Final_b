@@ -100,9 +100,10 @@ export default class GameManager {
 
   // deals with beating a level
   handleCompleteLevel() {
-    const levelRequirement = (query as LevelsData).levels.find((e) =>
-      e.levelNum === this.currentLevel
-    )!.requirements;
+    const levelRequirement =
+      (query as LevelsData).levels.find((e) =>
+        e.levelNum === this.currentLevel
+      )!.requirements;
 
     // Convert the plant requirements to an array
     const plants = Object.entries(levelRequirement.plants); // We use `Object.entries` to get both the plant name and the requirement

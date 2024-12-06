@@ -14,7 +14,7 @@ const RenderingEngine: React.FC<EngineProps> = ({ plantManager }) => {
   let ctx: CanvasRenderingContext2D;
 
   const player = new Player();
-  
+
   const gameLoop = () => {
     if (!ctx) return;
     ctx.clearRect(

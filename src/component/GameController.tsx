@@ -77,11 +77,14 @@ const GameController: React.FC<GCProps> = ({ plantManager }) => {
   return (
     <div className="game-controller-container">
       <button id="nextTurn" onClick={takeTurn}>
-        {getTranslation("Next Turn")}</button>
+        {getTranslation("Next Turn")}
+      </button>
       <button id="reapBtn" onClick={reap}>
-        {getTranslation("Reap")}</button>
+        {getTranslation("Reap")}
+      </button>
       <button id="sowBtn" onClick={sow}>
-        {getTranslation("Sow")}</button>
+        {getTranslation("Sow")}
+      </button>
     </div>
   );
 };

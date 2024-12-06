@@ -6,7 +6,7 @@ class PlantType {
   static named(name: string): PlantType {
     if (PlantType.existingPlants.has(name)) {
       console.warn(`PlantType "${name}" already exists. Ignoring duplicate.`);
-      throw new Error('dup plant name')
+      throw new Error("dup plant name");
     }
     PlantType.existingPlants.add(name);
     return new PlantType(name);
@@ -22,14 +22,15 @@ class PlantType {
   }
 
   evaluate(cell: Cell, proximity: number) {
-    if(this.growthStages[cell.planterBox.plant.growthLevel]){
-    return cell.planterBox.sunLevel >=
-          this.growthStages[cell.planterBox.plant.growthLevel].sunlevel &&
-        cell.planterBox.waterLevel >=
-          this.growthStages[cell.planterBox.plant.growthLevel].waterlevel &&
-        proximity >= this.growthStages[cell.planterBox.plant.growthLevel].proximity
-      ? true
-      : false;
+    if (this.growthStages[cell.planterBox.plant.growthLevel]) {
+      return cell.planterBox.sunLevel >=
+            this.growthStages[cell.planterBox.plant.growthLevel].sunlevel &&
+          cell.planterBox.waterLevel >=
+            this.growthStages[cell.planterBox.plant.growthLevel].waterlevel &&
+          proximity >=
+            this.growthStages[cell.planterBox.plant.growthLevel].proximity
+        ? true
+        : false;
     }
   }
 }

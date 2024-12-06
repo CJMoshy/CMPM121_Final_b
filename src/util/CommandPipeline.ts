@@ -41,7 +41,7 @@ export default class CommandPipeline {
     action.execute(this.gameManager);
   }
 
-  clearRedoStack(){
+  clearRedoStack() {
     this.redoStack.length = 0;
   }
 

@@ -5,7 +5,9 @@ import getTranslation from "./translateLanguage.ts";
 
 const Translator: React.FC = () => {
   const { currentLanguage, setLanguage } = useContext(TranslateContext);
-  const handleTranslateChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleTranslateChange = (
+    event: React.ChangeEvent<HTMLSelectElement>,
+  ) => {
     setLanguage(event.target.value as Language);
   };
 
@@ -13,7 +15,11 @@ const Translator: React.FC = () => {
     <div className="language-select-ui">
       <h3>{getTranslation("Select a Language")}</h3>
       <form>
-        <select id="language" value={currentLanguage} onChange={handleTranslateChange}>
+        <select
+          id="language"
+          value={currentLanguage}
+          onChange={handleTranslateChange}
+        >
           {languageNames.map((language) => (
             <option key={language.code} value={language.code}>
               {language.displayName}
@@ -23,6 +29,6 @@ const Translator: React.FC = () => {
       </form>
     </div>
   );
-}
+};
 
-export default Translator; 
+export default Translator;

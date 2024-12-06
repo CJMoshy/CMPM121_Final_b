@@ -228,12 +228,11 @@ export default class PlantManager implements Renderable {
 
       if (plantableCell && plantableCell.planterBox.plant.species != "none") {
         const plantSprite = new Image();
-        plantSprite.src =
-          new URL(
-            "../assets/Plants/" + plantableCell.planterBox.plant.species +
-              "Level" + plantableCell.planterBox.plant.growthLevel + ".png",
-            import.meta.url,
-          ).href;
+        plantSprite.src = new URL(
+          "../assets/Plants/" + plantableCell.planterBox.plant.species +
+            "Level" + plantableCell.planterBox.plant.growthLevel + ".png",
+          import.meta.url,
+        ).href;
         // console.log(plantSprite.src);
         ctx.drawImage(plantSprite, location[0], location[1], 12, 12);
       }

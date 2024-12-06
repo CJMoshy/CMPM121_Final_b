@@ -58,7 +58,7 @@ const PlantableUI: React.FC<PlantableUIProps> = ({ plantManager }) => {
       className="plantable-ui-container"
       style={{ visibility: isVisible ? "visible" : "hidden" }}
     >
-      {loading ? <p>Loading cells...</p> : (
+      {loading ? <p>{getTranslation("Loading Cells ...")}</p> : (
         <div>
           <h3>{getTranslation("Select a planterbox")}</h3>
           <form>
@@ -75,12 +75,15 @@ const PlantableUI: React.FC<PlantableUIProps> = ({ plantManager }) => {
                   />
                   <label htmlFor={`cell${cellNumber}`}>
                     {/* get a special condition for the farsi or mark it as a left to right*/}
-                    {`${getTranslation("Cell")} ${getTranslation(cellNumber.toString())}`}
+                    {`${getTranslation("Cell")} ${
+                      getTranslation(cellNumber.toString())
+                    }`}
                   </label>
                 </div>
               );
             })}
           </form>
+          {/*There is an issue with the selectedCellIndex and converting to string*/}
           <p>{getTranslation("Selected PlanterBox")}: {selectedCellIndex}</p>
           <PlanterBoxUI plantManager={plantManager} />
         </div>

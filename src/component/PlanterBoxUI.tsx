@@ -29,19 +29,35 @@ const PlanterBoxUI: React.FC<BoxUIProps> = ({ plantManager }) => {
     } else {
       console.log("planterbox is still loading");
     }
-  }
+  };
 
   return (
     <>
       {cell
         ? (
           <>
-            <p>{getTranslation("Cell i")}: {cell.i}</p>
-            <p>{getTranslation("Cell j")}: {cell.j}</p>
-            <p>{getTranslation("Water Level")}: {cell.planterBox.waterLevel}</p>
-            <p>{getTranslation("Sun Level")}: {cell.planterBox.sunLevel}</p>
-            <p>{getTranslation("Plant Species")}: {cell.planterBox.plant.species}</p>
-            <p>{getTranslation("Growth Level")}: {cell.planterBox.plant.growthLevel}</p>
+            <p>
+              {getTranslation("Cell i")}: {getTranslation(cell.i.toString())}
+            </p>
+            <p>
+              {getTranslation("Cell j")}: {getTranslation(cell.j.toString())}
+            </p>
+            <p>
+              {getTranslation("Water Level")}:{" "}
+              {getTranslation(cell.planterBox.waterLevel.toString())}
+            </p>
+            <p>
+              {getTranslation("Sun Level")}:{" "}
+              {getTranslation(cell.planterBox.sunLevel.toString())}
+            </p>
+            <p>
+              {getTranslation("Plant Species")}:{" "}
+              {getTranslation(cell.planterBox.plant.species.toString())}
+            </p>
+            <p>
+              {getTranslation("Growth Level")}:{" "}
+              {getTranslation(cell.planterBox.plant.growthLevel.toString())}
+            </p>
           </>
         )
         : <p>{getTranslation("No Cell Selected")}</p>}

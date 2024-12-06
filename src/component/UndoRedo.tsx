@@ -12,8 +12,12 @@ const UndoRedo: React.FC<UndoRedoProps> = ({ cmdPipe }) => {
   };
   return (
     <div className="undo-redo-container">
-      <button id="undoBtn" onClick={() => handleUndoRedo(true)}>{getTranslation("Undo")}</button>
-      <button id="redoBtn" onClick={() => handleUndoRedo(false)}>{getTranslation("Redo")}</button>
+      <button id="undoBtn" onClick={() => handleUndoRedo(true)}>
+        {getTranslation("Undo")}
+      </button>
+      <button id="redoBtn" onClick={() => handleUndoRedo(false)}>
+        {getTranslation("Redo")}
+      </button>
     </div>
   );
 };
