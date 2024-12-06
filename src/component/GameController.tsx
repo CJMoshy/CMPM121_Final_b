@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { CellContext, CellIndexContext, PlantContext } from "../Context.ts";
 import type PlantManager from "../controller/PlantController.ts";
+import getTranslation from "./translateLanguage.ts";
 
 interface GCProps {
   plantManager: PlantManager;
@@ -75,9 +76,12 @@ const GameController: React.FC<GCProps> = ({ plantManager }) => {
 
   return (
     <div className="game-controller-container">
-      <button id="nextTurn" onClick={takeTurn}>Next Turn</button>
-      <button id="reapBtn" onClick={reap}>Reap</button>
-      <button id="sowBtn" onClick={sow}>Sow</button>
+      <button id="nextTurn" onClick={takeTurn}>
+        {getTranslation("Next Turn")}</button>
+      <button id="reapBtn" onClick={reap}>
+        {getTranslation("Reap")}</button>
+      <button id="sowBtn" onClick={sow}>
+        {getTranslation("Sow")}</button>
     </div>
   );
 };

@@ -1,6 +1,7 @@
 import { CellContext, CellIndexContext } from "../Context.ts";
 import PlantManager from "../controller/PlantController.ts";
 import { useContext, useEffect } from "react";
+import getTranslation from "./translateLanguage.ts";
 
 interface BoxUIProps {
   plantManager: PlantManager;
@@ -35,15 +36,15 @@ const PlanterBoxUI: React.FC<BoxUIProps> = ({ plantManager }) => {
       {cell
         ? (
           <>
-            <p>Cell i: {cell.i}</p>
-            <p>Cell j: {cell.j}</p>
-            <p>Water Level {cell.planterBox.waterLevel}</p>
-            <p>Sun Level {cell.planterBox.sunLevel}</p>
-            <p>Plant Species: {cell.planterBox.plant.species}</p>
-            <p>Growth Level: {cell.planterBox.plant.growthLevel}</p>
+            <p>{getTranslation("Cell i")}: {cell.i}</p>
+            <p>{getTranslation("Cell j")}: {cell.j}</p>
+            <p>{getTranslation("Water Level")}: {cell.planterBox.waterLevel}</p>
+            <p>{getTranslation("Sun Level")}: {cell.planterBox.sunLevel}</p>
+            <p>{getTranslation("Plant Species")}: {cell.planterBox.plant.species}</p>
+            <p>{getTranslation("Growth Level")}: {cell.planterBox.plant.growthLevel}</p>
           </>
         )
-        : <p>No cell selected</p>}
+        : <p>{getTranslation("No Cell Selected")}</p>}
     </>
   );
 };

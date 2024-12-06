@@ -1,19 +1,12 @@
 import { useContext } from "react";
 import { TranslateContext } from "../Context.ts";
-import { languageNames, translationObject } from "./translateLanguage.ts";
+import { languageNames } from "./translateLanguage.ts";
+import getTranslation from "./translateLanguage.ts";
 
 const Translator: React.FC = () => {
-  const {currentLanguage, setLanguage}  = useContext(TranslateContext);
+  const { currentLanguage, setLanguage } = useContext(TranslateContext);
   const handleTranslateChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setLanguage(event.target.value as Language);
-  };
-    
-
-  const getTranslation = (key: string): string => {
-    if (translationObject[currentLanguage] && translationObject[currentLanguage][key]) {
-      return translationObject[currentLanguage][key];
-    }
-    return key;
   };
 
   return (

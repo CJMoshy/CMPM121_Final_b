@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { CellIndexContext } from "../Context.ts";
 import PlanterBoxUI from "./PlanterBoxUI.tsx";
 import PlantManager from "../controller/PlantController.ts";
+import getTranslation from "./translateLanguage.ts";
 
 interface PlantableUIProps {
   plantManager: PlantManager;
@@ -59,7 +60,7 @@ const PlantableUI: React.FC<PlantableUIProps> = ({ plantManager }) => {
     >
       {loading ? <p>Loading cells...</p> : (
         <div>
-          <h3>Select a planterbox</h3>
+          <h3>{getTranslation("Select a planterbox")}</h3>
           <form>
             {[...Array(8)].map((_, index) => {
               const cellNumber = index + 1;
@@ -73,13 +74,14 @@ const PlantableUI: React.FC<PlantableUIProps> = ({ plantManager }) => {
                     onChange={handleSelection}
                   />
                   <label htmlFor={`cell${cellNumber}`}>
-                    {`Cell ${cellNumber}`}
+                    {/* get a special condition for the farsi or mark it as a left to right*/}
+                    {`${getTranslation("Cell")} ${getTranslation(cellNumber.toString())}`}
                   </label>
                 </div>
               );
             })}
           </form>
-          <p>Selected PlanterBox: {selectedCellIndex}</p>
+          <p>{getTranslation("Selected PlanterBox")}: {selectedCellIndex}</p>
           <PlanterBoxUI plantManager={plantManager} />
         </div>
       )}

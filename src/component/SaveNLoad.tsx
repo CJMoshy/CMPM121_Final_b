@@ -1,4 +1,5 @@
 import type GameManager from "../controller/GameManager.ts";
+import getTranslation from "./translateLanguage.ts";
 
 interface SNLComp {
   gameManager: GameManager;
@@ -24,26 +25,25 @@ const SaveNLoad: React.FC<SNLComp> = ({ gameManager }) => {
         id="gameSaves"
         onChange={(e) => handleOnChange(e, true)}
       >
-        <option value="1">Slot 1</option>
-        <option value="2">Slot 2</option>
-        <option value="3">Slot 3</option>
-        <option value="4">Slot 4</option>
+        <option value="1">{getTranslation("Slot 1")}</option>
+        <option value="2">{getTranslation("Slot 2")}</option>
+        <option value="3">{getTranslation("Slot 3")}</option>
+        <option value="4">{getTranslation("Slot 4")}</option>
       </select>
       <select
         name="gameLoads"
         id="gameLoads"
         onChange={(e) => handleOnChange(e, false)}
       >
-        <option value="1">Slot 1</option>
-        <option value="2">Slot 2</option>
-        <option value="3">Slot 3</option>
-        <option value="4">Slot 4</option>
+        <option value="1">{getTranslation("Slot 1")}</option>
+        <option value="2">{getTranslation("Slot 2")}</option>
+        <option value="3">{getTranslation("Slot 3")}</option>
+        <option value="4">{getTranslation("Slot 4")}</option>
       </select>
-      <button id="saveBtn" onClick={() => handleSaveLoad(true)}>Save</button>
-      <button id="loadbtn" onClick={() => handleSaveLoad(false)}>Load</button>
+      <button id="saveBtn" onClick={() => handleSaveLoad(true)}>{getTranslation("Save")}</button>
+      <button id="loadbtn" onClick={() => handleSaveLoad(false)}>{getTranslation("Load")}</button>
       <p>
-        Game is automatically saved after every turn, but you can manually save
-        at any point
+        {getTranslation("Game is automatically saved after every turn, but you can manually save at any point")}
       </p>
     </div>
   );
