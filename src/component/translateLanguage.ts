@@ -80,8 +80,10 @@ export const translationObject: TranslateObject = {
     "Select a plant species": "选择一种植物种类",
     "Select a planterbox": "选择种植箱",
     "Select a Language": "选择一种语言",
-    "Cell i": "单元格 i",
-    "Cell j": "单元格 j",
+    //horizontal instead of i in chinese 
+    "Cell i": "单元格横",
+    //vertical instead of j in chinese 
+    "Cell j": "单元格纵",
     "Cell": "单元格",
     "Planterbox": "种植箱",
     "Selected PlanterBox": "已选择的种植箱",
@@ -137,8 +139,10 @@ export const translationObject: TranslateObject = {
     "Select a plant species": "یک گونه گیاهی انتخاب کنید",
     "Select a planterbox": "یک جعبه کاشت انتخاب کنید",
     "Select a Language": "یک زبان انتخاب کنید",
-    "Cell i": "سلول i",
-    "Cell j": "سلول j",
+    //means cell horizontal instead of i as there is no letter i
+    "Cell i": "سلول محور افقی",
+    //means cell vertical instead of j as it doesn't have no letter j
+    "Cell j": " سلول محور عمودی",
     "Cell": "سلول",
     "Planterbox": "جعبه کاشت",
     "Selected PlanterBox": "جعبه کاشت انتخاب شده",
