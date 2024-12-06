@@ -47,8 +47,8 @@ function App() {
     undefined,
   );
 
-  if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("./service-worker.ts");
+  if ("ServiceWorker" in navigator) {
+    navigator.serviceWorker.register("./ServiceWorker.ts");
   }
   
 
