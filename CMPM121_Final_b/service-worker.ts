@@ -1,19 +1,76 @@
+// Thanks to MDN web docs for some of this code
 const CACHE_NAME = "pwa-cache-v1";
-const urlsToCache = ["/", "/index.html", "/styles.css", "/game.js"]; // Include your game assets here
+const urlsToCache = [
+    "/CMPM121_Final_b/src/", 
+    "/CMPM121_Final_b/src/App.tsx", 
+    "/CMPM121_Final_b/src/App.css",
+    "/CMPM121_Final_b/src/Context.ts",
+    "/CMPM121_Final_b/src/index.css",
+    "/CMPM121_Final_b/src/index.d.ts",
+    "/CMPM121_Final_b/src/assets/Plants/Aloe VeraLevel0",
+    "/CMPM121_Final_b/src/assets/Plants/Aloe VeraLevel1",
+    "/CMPM121_Final_b/src/assets/Plants/Aloe VeraLevel2",
+    "/CMPM121_Final_b/src/assets/Plants/Aloe VeraLevel3",
+    "/CMPM121_Final_b/src/assets/Plants/blank",
+    "/CMPM121_Final_b/src/assets/Plants/FlytrapLevel0",
+    "/CMPM121_Final_b/src/assets/Plants/FlytrapLevel1",
+    "/CMPM121_Final_b/src/assets/Plants/FlytrapLevel2",
+    "/CMPM121_Final_b/src/assets/Plants/FlytrapLevel3",
+    "/CMPM121_Final_b/src/assets/Plants/WheatLevel0",
+    "/CMPM121_Final_b/src/assets/Plants/WheatLevel1",
+    "/CMPM121_Final_b/src/assets/Plants/WheatLevel2",
+    "/CMPM121_Final_b/src/assets/Plants/WheatLevel3",
+    "/CMPM121_Final_b/src/assets/player/player-walk-anims.json",
+    "/CMPM121_Final_b/src/assets/player/player.png",
+    "/CMPM121_Final_b/src/component/GameController.tsx",
+    "/CMPM121_Final_b/src/component/PlantableUI.tsx",
+    "/CMPM121_Final_b/src/component/PlayerBoxUI.tsx",
+    "/CMPM121_Final_b/src/component/PlayerController.tsx",
+    "/CMPM121_Final_b/src/component/RenderingEngine.tsx",
+    "/CMPM121_Final_b/src/component/SaveNLoad.tsx",
+    "/CMPM121_Final_b/src/component/SelectPlantUI.tsx",
+    "/CMPM121_Final_b/src/component/UndoRedo.tsx",
+    "/CMPM121_Final_b/src/controller/GameManager.ts",
+    "/CMPM121_Final_b/src/controller/PlantController",
+    "/CMPM121_Final_b/src/prefab/Player.ts",
+    "/CMPM121_Final_b/src/styles/Engine.css",
+    "/CMPM121_Final_b/src/util/json/scenario.json",
+    "/CMPM121_Final_b/src/util/Action.ts",
+    "/CMPM121_Final_b/src/util/CommandPipeline.ts",
+    "/CMPM121_Final_b/src/util/GameConfig.ts",
+    "/CMPM121_Final_b/src/util/PlantDSL.ts",
+    "/CMPM121_Final_b/src/util/PlantTypes.ts",
+    "/CMPM121_Final_b/src/util/Storage.ts",
+    "/CMPM121_Final_b/index.html/"];
 
-self.addEventListener("install", (event) => {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      console.log("Opened cache");
-      return cache.addAll(urlsToCache);
-    })
-  );
-});
 
-self.addEventListener("fetch", (event) => {
-  event.respondWith(
-    caches.match(event.request).then((response) => {
-      return response || fetch(event.request);
-    })
-  );
-});
+// Installing Service Worker
+self.addEventListener('install', (e) => {
+    // console.log('[Service Worker] Install');
+    e.waitUntil((async () => {
+      const cache = await caches.open(CACHE_NAME);
+    //   console.log('[Service Worker] Caching all: app shell and content');
+      await cache.addAll(urlsToCache);
+    })());
+  });
+  
+  // Fetching content using Service Worker
+  self.addEventListener('fetch', (e) => {
+      // Cache http and https only, skip unsupported chrome-extension:// and file://...
+      if (!(
+         e.request.url.startsWith('http:') || e.request.url.startsWith('https:')
+      )) {
+          return; 
+      }
+  
+    e.respondWith((async () => {
+      const r = await caches.match(e.request);
+    //   console.log(`[Service Worker] Fetching resource: ${e.request.url}`);
+      if (r) return r;
+      const response = await fetch(e.request);
+      const cache = await caches.open(CACHE_NAME);
+    //   console.log(`[Service Worker] Caching new resource: ${e.request.url}`);
+      cache.put(e.request, response.clone());
+      return response;
+    })());
+  });

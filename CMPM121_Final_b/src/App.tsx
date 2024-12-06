@@ -47,6 +47,11 @@ function App() {
     undefined,
   );
 
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("./service-worker.ts");
+  }
+  
+
   useEffect(() => {
     gameManager.initGame();
   }, []);
