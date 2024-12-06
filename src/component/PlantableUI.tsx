@@ -84,7 +84,7 @@ const PlantableUI: React.FC<PlantableUIProps> = ({ plantManager }) => {
             })}
           </form>
           {/*There is an issue with the selectedCellIndex and converting to string*/}
-          <p>{getTranslation("Selected PlanterBox")}: {selectedCellIndex}</p>
+          <p>{getTranslation("Selected PlanterBox")}: {getTranslation(selectedCellIndex.toString())}</p>
           <PlanterBoxUI plantManager={plantManager} />
         </div>
       )}
