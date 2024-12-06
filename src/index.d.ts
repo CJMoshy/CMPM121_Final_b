@@ -23,6 +23,18 @@ interface PlanterBox {
 
 type PlantSpecies = string;
 
+type Language = string;
+
+interface LanguageTranslations {
+  [key: string]: string; // Key-value pairs for all translatable phrases
+}
+
+interface TranslateObject {
+  [language: string]: LanguageTranslations;
+}
+
+
+
 interface Plant {
   species: PlantSpecies;
   growthLevel: number;

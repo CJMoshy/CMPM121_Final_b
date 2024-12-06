@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { PlantContext } from "../Context.ts";
+import { PlantContext} from "../Context.ts";
 import PlantType from "../util/PlantDSL.ts";
 
 interface SelectPlantUIProp {
@@ -8,7 +8,6 @@ interface SelectPlantUIProp {
 
 const SelectPlantUI: React.FC<SelectPlantUIProp> = ({ plants }) => {
   const { selectedPlant, setSelectedPlant } = useContext(PlantContext);
-
   const handlePlantChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedPlant(event.target.value as PlantSpecies);
   };

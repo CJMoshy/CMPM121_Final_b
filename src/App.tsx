@@ -12,9 +12,10 @@ import UndoRedo from "./component/UndoRedo.tsx";
 import PlantManager from "./controller/PlantController.ts";
 import CommandPipeline from "./util/CommandPipeline.ts";
 import Action from "./util/Action.ts";
-import { CellContext, CellIndexContext, PlantContext } from "./Context.ts";
+import { CellContext, CellIndexContext, PlantContext, TranslateContext } from "./Context.ts";
 import { useEffect, useState } from "react";
 import {plants} from './util/PlantTypes.ts'
+import Translator from "./component/TranslateUI.tsx";
 
 const plantManager = new PlantManager(plants);
 const gameManager = new GameManager(plantManager);
@@ -47,6 +48,8 @@ function App() {
     undefined,
   );
 
+  const [currentLanguage, setLanguage] = useState<string>("en")
+
   useEffect(() => {
     gameManager.initGame();
   }, []);
@@ -58,13 +61,16 @@ function App() {
       >
         <CellContext.Provider value={{ cell, setCell }}>
           <PlantContext.Provider value={{ selectedPlant, setSelectedPlant }}>
+          <TranslateContext.Provider value={{ currentLanguage, setLanguage }}>
             <RenderingEngine plantManager={plantManager} />
             <PlayerController />
             <GameController plantManager={plantManager} />
             <SaveNLoad gameManager={gameManager} />
             <UndoRedo cmdPipe={cmdPipeline} />
             <SelectPlantUI plants={plants} />
+            <Translator/> 
             <PlantableUI plantManager={plantManager} />
+            </TranslateContext.Provider>
           </PlantContext.Provider>
         </CellContext.Provider>
       </CellIndexContext.Provider>
