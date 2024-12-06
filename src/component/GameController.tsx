@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { CellContext, CellIndexContext, PlantContext } from "../Context.ts";
+import { CellContext, CellIndexContext, PlantContext, TranslateContext } from "../Context.ts";
 import type PlantManager from "../controller/PlantController.ts";
 import getTranslation from "./translateLanguage.ts";
 
@@ -10,6 +10,7 @@ const GameController: React.FC<GCProps> = ({ plantManager }) => {
   const { selectedCellIndex } = useContext(CellIndexContext);
   const { cell, setCell } = useContext(CellContext);
   const { selectedPlant } = useContext(PlantContext);
+  const { currentLanguage} = useContext(TranslateContext);
 
   const takeTurn = () => { // fix this
     document.dispatchEvent(new Event("gameStateAdvance"));
@@ -77,13 +78,13 @@ const GameController: React.FC<GCProps> = ({ plantManager }) => {
   return (
     <div className="game-controller-container">
       <button id="nextTurn" onClick={takeTurn}>
-        {getTranslation("Next Turn")}
+        {getTranslation("Next Turn", currentLanguage)}
       </button>
       <button id="reapBtn" onClick={reap}>
-        {getTranslation("Reap")}
+        {getTranslation("Reap", currentLanguage)}
       </button>
       <button id="sowBtn" onClick={sow}>
-        {getTranslation("Sow")}
+        {getTranslation("Sow", currentLanguage)}
       </button>
     </div>
   );

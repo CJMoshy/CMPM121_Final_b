@@ -1,4 +1,6 @@
-import getTranslation from "./translateLanguage";
+import { useContext } from "react";
+import { TranslateContext } from "../Context.ts";
+import getTranslation from "./translateLanguage.ts";
 
 const PlayerController: React.FC = () => {
   const handleMove = (_direction: direction) => {
@@ -6,20 +8,22 @@ const PlayerController: React.FC = () => {
     document.dispatchEvent(event);
   };
 
+  const { currentLanguage} = useContext(TranslateContext);
+  
   return (
     <div className="player-controls-container">
       <button id="move-up-btn" onClick={() => handleMove("up")}>
-        {getTranslation("Up")}
+        {getTranslation("Up", currentLanguage)}
       </button>
       <div>
         <button id="move-left-btn" onClick={() => handleMove("left")}>
-          {getTranslation("Left")}
+          {getTranslation("Left", currentLanguage)}
         </button>
         <button id="move-down-btn" onClick={() => handleMove("down")}>
-          {getTranslation("Down")}
+          {getTranslation("Down", currentLanguage)}
         </button>
         <button id="move-right-btn" onClick={() => handleMove("right")}>
-          {getTranslation("Right")}
+          {getTranslation("Right", currentLanguage)}
         </button>
       </div>
     </div>

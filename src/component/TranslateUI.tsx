@@ -13,7 +13,7 @@ const Translator: React.FC = () => {
 
   return (
     <div className="language-select-ui">
-      <h3>{getTranslation("Select a Language")}</h3>
+      <h3>{getTranslation("Select a Language", currentLanguage)}</h3>
       <form>
         <select
           id="language"

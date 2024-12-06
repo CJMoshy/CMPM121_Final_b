@@ -1,6 +1,3 @@
-import { useContext } from "react";
-import { TranslateContext } from "../Context";
-
 export const languageNames = [
   { code: "en", displayName: "English", orientation: "left" },
   { code: "fa", displayName: "فارسی", orientation: "right" },
@@ -20,7 +17,7 @@ export const translationObject: TranslateObject = {
     "Plant Species": "Plant Species",
     "Aloe Vera": "Aloe Vera",
     "Wheat": "Wheat",
-    "Venus Flytrap": "Venus Flytrap",
+    "Flytrap": "Flytrap",
     "Water Level": "Water Level",
     "Sun Level": "Sun Level",
     "Growth Level": "Growth Level",
@@ -41,7 +38,7 @@ export const translationObject: TranslateObject = {
     "Planterbox": "Planterbox",
     "Selected PlanterBox": "",
     "No Cell Selected": "No Cell Selected",
-    "None": "None",
+    "none": "none",
     "Game is automatically saved after every turn, but you can manually save at any point":
       "Game is automatically saved after every turn, but you can manually save at any point",
     "Loading": "Loading",
@@ -68,7 +65,7 @@ export const translationObject: TranslateObject = {
     "Plant Species": "植物种类",
     "Aloe Vera": "芦荟",
     "Wheat": "小麦",
-    "Venus Flytrap": "捕蝇草",
+    "Flytrap": "捕蝇草",
     "Water Level": "水位",
     "Sun Level": "阳光水平",
     "Growth Level": "生长水平",
@@ -89,7 +86,7 @@ export const translationObject: TranslateObject = {
     "Planterbox": "种植箱",
     "Selected PlanterBox": "已选择的种植箱",
     "No Cell Selected": "没有选择任何单元格",
-    "None": "无",
+    "none": "无",
     "Game is automatically saved after every turn, but you can manually save at any point":
       "游戏会在每回合后自动保存，但您可以随时手动保存",
     "Loading": "加载中",
@@ -125,7 +122,7 @@ export const translationObject: TranslateObject = {
     "Plant Species": "گونه‌های گیاهی",
     "Aloe Vera": "آلوئه‌ورا",
     "Wheat": "گندم",
-    "Venus Flytrap": "گیاه گوشت‌خوار",
+    "Flytrap": "گیاه گوشت‌خوار",
     "Water Level": "سطح آب",
     "Sun Level": "سطح نور خورشید",
     "Growth Level": "سطح رشد",
@@ -146,7 +143,7 @@ export const translationObject: TranslateObject = {
     "Planterbox": "جعبه کاشت",
     "Selected PlanterBox": "جعبه کاشت انتخاب شده",
     "No Cell Selected": "هیچ سلولی انتخاب نشده است",
-    "None": "هیچکدام",
+    "none": "هیچکدام",
     "Game is automatically saved after every turn, but you can manually save at any point":
       "بازی به طور خودکار بعد از هر نوبت ذخیره می‌شود، اما می‌توانید هر لحظه به صورت دستی ذخیره کنید",
     "Loading": "در حال بارگذاری",
@@ -171,8 +168,10 @@ export const translationObject: TranslateObject = {
   },
 };
 
-export default function getTranslation(key: string) {
-  const { currentLanguage, setLanguage } = useContext(TranslateContext);
+export default function getTranslation(
+  key: string,
+  currentLanguage: string,
+) {
   if (
     translationObject[currentLanguage] &&
     translationObject[currentLanguage][key]
