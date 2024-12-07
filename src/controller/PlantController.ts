@@ -230,7 +230,7 @@ export default class PlantManager implements Renderable {
         const plantSprite = new Image();
         plantSprite.src =
           new URL(
-            "../assets/Plants/" + plantableCell.planterBox.plant.species +
+            "/assets/Plants/" + plantableCell.planterBox.plant.species +
               "Level" + plantableCell.planterBox.plant.growthLevel + ".png",
             import.meta.url,
           ).href;
