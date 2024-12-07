@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { TranslateContext } from "../Context.ts";
-import { languageNames } from "./translateLanguage.ts";
-import getTranslation from "./translateLanguage.ts";
+import { languageNames } from "../util/TranslateLanguage.ts";
+import getTranslation from "../util/TranslateLanguage.ts";
 
 const Translator: React.FC = () => {
   const { currentLanguage, setLanguage } = useContext(TranslateContext);

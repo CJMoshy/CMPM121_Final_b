@@ -1,7 +1,12 @@
 import { useContext } from "react";
-import { CellContext, CellIndexContext, PlantContext, TranslateContext } from "../Context.ts";
+import {
+  CellContext,
+  CellIndexContext,
+  PlantContext,
+  TranslateContext,
+} from "../Context.ts";
 import type PlantManager from "../controller/PlantController.ts";
-import getTranslation from "./translateLanguage.ts";
+import getTranslation from "../util/TranslateLanguage.ts";
 
 interface GCProps {
   plantManager: PlantManager;
@@ -10,7 +15,7 @@ const GameController: React.FC<GCProps> = ({ plantManager }) => {
   const { selectedCellIndex } = useContext(CellIndexContext);
   const { cell, setCell } = useContext(CellContext);
   const { selectedPlant } = useContext(PlantContext);
-  const { currentLanguage} = useContext(TranslateContext);
+  const { currentLanguage } = useContext(TranslateContext);
 
   const takeTurn = () => { // fix this
     document.dispatchEvent(new Event("gameStateAdvance"));

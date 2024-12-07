@@ -1,4 +1,4 @@
-import type GameManager from "../controller/GameManager.ts";
+import type GameManager from "../../controller/GameManager.ts";
 
 export default class Action {
   private state: GameState;

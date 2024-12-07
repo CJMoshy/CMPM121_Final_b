@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { CellIndexContext, TranslateContext } from "../Context.ts";
 import PlanterBoxUI from "./PlanterBoxUI.tsx";
 import PlantManager from "../controller/PlantController.ts";
-import getTranslation from "./translateLanguage.ts";
+import getTranslation from "../util/TranslateLanguage.ts";
 
 interface PlantableUIProps {
   plantManager: PlantManager;
@@ -59,35 +59,40 @@ const PlantableUI: React.FC<PlantableUIProps> = ({ plantManager }) => {
       className="plantable-ui-container"
       style={{ visibility: isVisible ? "visible" : "hidden" }}
     >
-      {loading ? <p>{getTranslation("Loading Cells ...", currentLanguage)}</p> : (
-        <div>
-          <h3>{getTranslation("Select a planterbox", currentLanguage)}</h3>
-          <form>
-            {[...Array(8)].map((_, index) => {
-              const cellNumber = index + 1;
-              return (
-                <div key={cellNumber}>
-                  <input
-                    type="radio"
-                    id={`cell${cellNumber}`}
-                    name="cell"
-                    value={`${cellNumber}`}
-                    onChange={handleSelection}
-                  />
-                  <label htmlFor={`cell${cellNumber}`}>
-                    {/* get a special condition for the farsi or mark it as a left to right*/}
-                    {`${getTranslation("Cell", currentLanguage)} ${
-                      getTranslation(cellNumber.toString(), currentLanguage)
-                    }`}
-                  </label>
-                </div>
-              );
-            })}
-          </form>
-          <p>{getTranslation("Selected PlanterBox", currentLanguage)}: {getTranslation(selectedCellIndex, currentLanguage)}</p>
-          <PlanterBoxUI plantManager={plantManager} />
-        </div>
-      )}
+      {loading
+        ? <p>{getTranslation("Loading Cells ...", currentLanguage)}</p>
+        : (
+          <div>
+            <h3>{getTranslation("Select a planterbox", currentLanguage)}</h3>
+            <form>
+              {[...Array(8)].map((_, index) => {
+                const cellNumber = index + 1;
+                return (
+                  <div key={cellNumber}>
+                    <input
+                      type="radio"
+                      id={`cell${cellNumber}`}
+                      name="cell"
+                      value={`${cellNumber}`}
+                      onChange={handleSelection}
+                    />
+                    <label htmlFor={`cell${cellNumber}`}>
+                      {/* get a special condition for the farsi or mark it as a left to right*/}
+                      {`${getTranslation("Cell", currentLanguage)} ${
+                        getTranslation(cellNumber.toString(), currentLanguage)
+                      }`}
+                    </label>
+                  </div>
+                );
+              })}
+            </form>
+            <p>
+              {getTranslation("Selected PlanterBox", currentLanguage)}:{" "}
+              {getTranslation(selectedCellIndex, currentLanguage)}
+            </p>
+            <PlanterBoxUI plantManager={plantManager} />
+          </div>
+        )}
     </div>
   );
 };

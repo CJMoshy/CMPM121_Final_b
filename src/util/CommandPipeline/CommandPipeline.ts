@@ -5,7 +5,7 @@
  */
 
 import Action from "./Action.ts";
-import type GameManager from "../controller/GameManager.ts";
+import type GameManager from "../../controller/GameManager.ts";
 
 export default class CommandPipeline {
   private actionStack!: Action[];

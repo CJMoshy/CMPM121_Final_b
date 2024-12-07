@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { TranslateContext } from "../Context.ts";
 import type GameManager from "../controller/GameManager.ts";
-import getTranslation from "./translateLanguage.ts";
+import getTranslation from "../util/TranslateLanguage.ts";
 
 interface SNLComp {
   gameManager: GameManager;
@@ -20,7 +20,7 @@ const SaveNLoad: React.FC<SNLComp> = ({ gameManager }) => {
     save ? gameManager.saveGame() : gameManager.loadSavedGame();
   };
 
-  const { currentLanguage} = useContext(TranslateContext);
+  const { currentLanguage } = useContext(TranslateContext);
 
   return (
     <div className="save-load-contaier">
@@ -53,7 +53,7 @@ const SaveNLoad: React.FC<SNLComp> = ({ gameManager }) => {
       <p>
         {getTranslation(
           "Game is automatically saved after every turn, but you can manually save at any point",
-          currentLanguage
+          currentLanguage,
         )}
       </p>
     </div>

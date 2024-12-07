@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { PlantContext, TranslateContext } from "../Context.ts";
-import PlantType from "../util/PlantDSL.ts";
-import getTranslation from "./translateLanguage.ts";
+import PlantType from "../util/DSL/PlantDSL.ts";
+import getTranslation from "../util/TranslateLanguage.ts";
 
 interface SelectPlantUIProp {
   plants: PlantType[];
@@ -9,7 +9,7 @@ interface SelectPlantUIProp {
 
 const SelectPlantUI: React.FC<SelectPlantUIProp> = ({ plants }) => {
   const { selectedPlant, setSelectedPlant } = useContext(PlantContext);
-  const { currentLanguage} = useContext(TranslateContext);
+  const { currentLanguage } = useContext(TranslateContext);
   const handlePlantChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedPlant(event.target.value as PlantSpecies);
   };

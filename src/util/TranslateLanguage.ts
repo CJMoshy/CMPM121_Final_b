@@ -80,9 +80,9 @@ export const translationObject: TranslateObject = {
     "Select a plant species": "选择一种植物种类",
     "Select a planterbox": "选择种植箱",
     "Select a Language": "选择一种语言",
-    //horizontal instead of i in chinese 
+    //horizontal instead of i in chinese
     "Cell i": "单元格横",
-    //vertical instead of j in chinese 
+    //vertical instead of j in chinese
     "Cell j": "单元格纵",
     "Cell": "单元格",
     "Planterbox": "种植箱",

@@ -1,6 +1,6 @@
 import { TranslateContext } from "../Context.ts";
-import type CommandPipeline from "../util/CommandPipeline.ts";
-import getTranslation from "./translateLanguage.ts";
+import type CommandPipeline from "../util/CommandPipeline/CommandPipeline.ts";
+import getTranslation from "../util/TranslateLanguage.ts";
 import { useContext } from "react";
 
 interface UndoRedoProps {
@@ -12,7 +12,7 @@ const UndoRedo: React.FC<UndoRedoProps> = ({ cmdPipe }) => {
     undo ? cmdPipe.undo() : cmdPipe.redo();
     document.dispatchEvent(new Event("updateUI"));
   };
-  const { currentLanguage} = useContext(TranslateContext);
+  const { currentLanguage } = useContext(TranslateContext);
   return (
     <div className="undo-redo-container">
       <button id="undoBtn" onClick={() => handleUndoRedo(true)}>

@@ -1,7 +1,7 @@
 import PlantManager from "./PlantController.ts";
 // import TimeManager from "./TimeController.ts";
 import { loadGameState, saveGameState } from "../util/Storage.ts";
-import Action from "../util/Action.ts";
+import Action from "../util/CommandPipeline/Action.ts";
 import query from "../util/json/scenario.json" with { type: "json" };
 
 export default class GameManager {

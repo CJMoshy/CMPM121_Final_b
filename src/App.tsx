@@ -10,8 +10,8 @@ import SelectPlantUI from "./component/SelectPlantUI.tsx";
 import SaveNLoad from "./component/SaveNLoad.tsx";
 import UndoRedo from "./component/UndoRedo.tsx";
 import PlantManager from "./controller/PlantController.ts";
-import CommandPipeline from "./util/CommandPipeline.ts";
-import Action from "./util/Action.ts";
+import CommandPipeline from "./util/CommandPipeline/CommandPipeline.ts";
+import Action from "./util/CommandPipeline/Action.ts";
 import {
   CellContext,
   CellIndexContext,
@@ -19,7 +19,7 @@ import {
   TranslateContext,
 } from "./Context.ts";
 import { useEffect, useState } from "react";
-import { plants } from "./util/PlantTypes.ts";
+import { plants } from "./util/DSL/PlantTypes.ts";
 import Translator from "./component/TranslateUI.tsx";
 
 const plantManager = new PlantManager(plants);
@@ -57,7 +57,7 @@ function App() {
   if ("ServiceWorker" in navigator) {
     navigator.serviceWorker.register("./ServiceWorker.ts");
   }
-  
+
   plantManager.loadSprites();
 
   useEffect(() => {

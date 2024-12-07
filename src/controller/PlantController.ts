@@ -1,10 +1,14 @@
 import { GAME_CONFIG, plantGrowthLevel } from "../util/GameConfig.ts";
-import PlantType from "../util/PlantDSL.ts";
+import PlantType from "../util/DSL/PlantDSL.ts";
 const plantSpriteMap: Record<string, string> = {
-  "Aloe Vera0": new URL("/assets/Plants/AloeVeraLevel0.png", import.meta.url).href,
-  "Aloe Vera1": new URL("/assets/Plants/AloeVeraLevel1.png", import.meta.url).href,
-  "Aloe Vera2": new URL("/assets/Plants/AloeVeraLevel2.png", import.meta.url).href,
-  "Aloe Vera3": new URL("/assets/Plants/AloeVeraLevel3.png", import.meta.url).href,
+  "Aloe Vera0":
+    new URL("/assets/Plants/AloeVeraLevel0.png", import.meta.url).href,
+  "Aloe Vera1":
+    new URL("/assets/Plants/AloeVeraLevel1.png", import.meta.url).href,
+  "Aloe Vera2":
+    new URL("/assets/Plants/AloeVeraLevel2.png", import.meta.url).href,
+  "Aloe Vera3":
+    new URL("/assets/Plants/AloeVeraLevel3.png", import.meta.url).href,
   "Flytrap0": new URL("/assets/Plants/FlytrapLevel0.png", import.meta.url).href,
   "Flytrap1": new URL("/assets/Plants/FlytrapLevel1.png", import.meta.url).href,
   "Flytrap2": new URL("/assets/Plants/FlytrapLevel2.png", import.meta.url).href,
@@ -13,7 +17,7 @@ const plantSpriteMap: Record<string, string> = {
   "Wheat1": new URL("/assets/Plants/WheatLevel1.png", import.meta.url).href,
   "Wheat2": new URL("/assets/Plants/WheatLevel2.png", import.meta.url).href,
   "Wheat3": new URL("/assets/Plants/WheatLevel3.png", import.meta.url).href,
-}
+};
 export default class PlantManager implements Renderable {
   private plantableCellsBuffer: ArrayBuffer; // updated storage mech
   private plantableCellsView: DataView; // used to set,get from array buffer
@@ -236,23 +240,22 @@ export default class PlantManager implements Renderable {
       ctx.fillRect(location[0], location[1], 12, 12);
       const plantableCell = this.getAllPlantableCells().find((
         cell,
-      ) =>
-        cell.i === location[0] && cell.j === location[1]
-      );
+      ) => cell.i === location[0] && cell.j === location[1]);
 
       if (plantableCell && plantableCell.planterBox.plant.species != "none") {
         const plantSprite = new Image();
-        const srcKey = plantableCell.planterBox.plant.species + plantableCell.planterBox.plant.growthLevel;
+        const srcKey = plantableCell.planterBox.plant.species +
+          plantableCell.planterBox.plant.growthLevel;
         plantSprite.src = plantSpriteMap[srcKey];
         ctx.drawImage(plantSprite, location[0], location[1], 12, 12);
       }
     }
   }
 
-  loadSprites(){
+  loadSprites() {
     // const plantSprite = new Image();
-    Object.values(plantSpriteMap).forEach(sprite => {
+    Object.values(plantSpriteMap).forEach((sprite) => {
       fetch(sprite);
-    })
+    });
   }
 }
