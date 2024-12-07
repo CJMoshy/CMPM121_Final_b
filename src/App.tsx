@@ -51,6 +51,7 @@ function App() {
     navigator.serviceWorker.register("./ServiceWorker.ts");
   }
   
+  plantManager.loadSprites();
 
   useEffect(() => {
     gameManager.initGame();

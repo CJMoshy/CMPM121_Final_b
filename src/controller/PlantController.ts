@@ -1,3 +1,4 @@
+import { object } from "../../../../../../../AppData/Local/deno/npm/registry.npmjs.org/@types/prop-types/15.7.13/index.d.ts";
 import { GAME_CONFIG, plantGrowthLevel } from "../util/GameConfig.ts";
 import PlantType from "../util/PlantDSL.ts";
 const plantSpriteMap: Record<string, string> = {
@@ -247,5 +248,12 @@ export default class PlantManager implements Renderable {
         ctx.drawImage(plantSprite, location[0], location[1], 12, 12);
       }
     }
+  }
+
+  loadSprites(){
+    const plantSprite = new Image();
+    Object.values(plantSpriteMap).forEach(sprite => {
+      plantSprite.src = sprite;
+    })
   }
 }
