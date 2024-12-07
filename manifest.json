@@ -6,8 +6,9 @@
     "display": "standalone",
     "icons": [
       {
-        "src": "https://cdn.glitch.global/4fc6eda5-1313-4a1e-8b76-b859653416cd/brace-logo-symbol.png?v=1733533998031",
-        "sizes": "180x180"
+        "src": "/src/assets/icon.png",
+        "sizes": "512x512",
+        "type": "image/png"
       }
     ]
   }
