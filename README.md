@@ -1,19 +1,5 @@
-# Vite + Deno + React + TypeScript
+# CMPM 121 Final B
 
-## Running
+We ported the game from Phaser.js to React!
 
-You need to have Deno v2.0.0 or later installed to run this repo.
-
-Start a dev server:
-
-```
-$ deno task dev
-```
-
-## Deploy
-
-Build production assets:
-
-```
-$ deno task build
-```
+[Check It Out!](https://cjmoshy.github.io/CMPM121_Final_b/)

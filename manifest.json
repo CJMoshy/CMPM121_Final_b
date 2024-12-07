@@ -1,0 +1,14 @@
+{
+    "name": "CMPM 121 Final",
+    "short_name": "121Final",
+    "description": "A farming game",
+    "start_url": "/index.html",
+    "display": "standalone",
+    "icons": [
+      {
+        "src": "/src/assets/icon.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      }
+    ]
+  }

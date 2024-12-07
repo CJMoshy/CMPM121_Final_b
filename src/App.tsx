@@ -54,6 +54,10 @@ function App() {
   );
 
   const [currentLanguage, setLanguage] = useState<string>("en");
+  if ("ServiceWorker" in navigator) {
+    navigator.serviceWorker.register("./ServiceWorker.ts");
+  }
+  
 
   useEffect(() => {
     gameManager.initGame();
