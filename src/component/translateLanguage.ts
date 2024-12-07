@@ -101,7 +101,7 @@ export const translationObject: TranslateObject = {
     "5": "五",
     "6": "六",
     "7": "七",
-    "8": "8",
+    "8": "八",
     "50": "五十",
     "75": "七十五",
     "100": "一百",
