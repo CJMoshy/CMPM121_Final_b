@@ -1,5 +1,5 @@
 import { GAME_CONFIG } from "../util/GameConfig.ts";
-const playerSrc = new URL("../assets/player/player.png", import.meta.url).href;
+const playerSrc = new URL("/assets/player/player.png", import.meta.url).href;
 
 const INITIALPLAYERX = 30;
 const INITIALPLAYERY = 70;
