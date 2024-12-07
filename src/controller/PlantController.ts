@@ -251,9 +251,9 @@ export default class PlantManager implements Renderable {
   }
 
   loadSprites(){
-    const plantSprite = new Image();
+    // const plantSprite = new Image();
     Object.values(plantSpriteMap).forEach(sprite => {
-      plantSprite.src = sprite;
+      fetch(sprite);
     })
   }
 }
