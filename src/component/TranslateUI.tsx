@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { TranslateContext } from "../Context.ts";
 import { languageNames } from "../util/TranslateLanguage.ts";
-import getTranslation from "../util/TranslateLanguage.ts";
+import { getStringTranslation } from "../util/TranslateLanguage.ts";
 
 const Translator: React.FC = () => {
   const { currentLanguage, setLanguage } = useContext(TranslateContext);
@@ -13,7 +13,7 @@ const Translator: React.FC = () => {
 
   return (
     <div className="language-select-ui">
-      <h3>{getTranslation("Select a Language", currentLanguage)}</h3>
+      <h3>{getStringTranslation("Select a Language", currentLanguage)}</h3>
       <form>
         <select
           id="language"

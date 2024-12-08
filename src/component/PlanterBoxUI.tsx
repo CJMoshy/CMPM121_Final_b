@@ -1,7 +1,10 @@
 import { CellContext, CellIndexContext, TranslateContext } from "../Context.ts";
 import PlantManager from "../controller/PlantController.ts";
 import { useContext, useEffect } from "react";
-import getTranslation from "../util/TranslateLanguage.ts";
+import {
+  getNumberTranslation,
+  getStringTranslation,
+} from "../util/TranslateLanguage.ts";
 
 interface BoxUIProps {
   plantManager: PlantManager;
@@ -35,39 +38,44 @@ const PlanterBoxUI: React.FC<BoxUIProps> = ({ plantManager }) => {
         ? (
           <>
             <p>
-              {getTranslation("Cell i", currentLanguage)}:{" "}
-              {getTranslation(cell.i.toString(), currentLanguage)}
+              {getStringTranslation("Cell i", currentLanguage)}:{" "}
+              {getNumberTranslation(cell.i, currentLanguage)}
             </p>
             <p>
-              {getTranslation("Cell j", currentLanguage)}:{" "}
-              {getTranslation(cell.j.toString(), currentLanguage)}
+              {getStringTranslation("Cell j", currentLanguage)}:{" "}
+              {getNumberTranslation(cell.j, currentLanguage)}
             </p>
             <p>
-              {getTranslation("Water Level", currentLanguage)}: {getTranslation(
-                cell.planterBox.waterLevel.toString(),
+              {getStringTranslation("Water Level", currentLanguage)}:{" "}
+              {getNumberTranslation(
+                cell.planterBox.waterLevel,
                 currentLanguage,
               )}
             </p>
             <p>
-              {getTranslation("Sun Level", currentLanguage)}: {getTranslation(
-                cell.planterBox.sunLevel.toString(),
+              {getStringTranslation("Sun Level", currentLanguage)}:{" "}
+              {getNumberTranslation(
+                cell.planterBox.sunLevel,
                 currentLanguage,
               )}
             </p>
             <p>
-              {getTranslation("Plant Species", currentLanguage)}:{" "}
-              {getTranslation(cell.planterBox.plant.species, currentLanguage)}
+              {getStringTranslation("Plant Species", currentLanguage)}:{" "}
+              {getStringTranslation(
+                cell.planterBox.plant.species,
+                currentLanguage,
+              )}
             </p>
             <p>
-              {getTranslation("Growth Level", currentLanguage)}:{" "}
-              {getTranslation(
-                cell.planterBox.plant.growthLevel.toString(),
+              {getStringTranslation("Growth Level", currentLanguage)}:{" "}
+              {getNumberTranslation(
+                cell.planterBox.plant.growthLevel,
                 currentLanguage,
               )}
             </p>
           </>
         )
-        : <p>{getTranslation("No Cell Selected", currentLanguage)}</p>}
+        : <p>{getStringTranslation("No Cell Selected", currentLanguage)}</p>}
     </>
   );
 };

@@ -1,6 +1,9 @@
 import { useContext, useEffect } from "react";
 import { LevelContext, TranslateContext } from "../Context.ts";
-import getTranslation from "../util/TranslateLanguage.ts";
+import {
+  getNumberTranslation,
+  getStringTranslation,
+} from "../util/TranslateLanguage.ts";
 import GameManager from "../controller/GameManager.ts";
 
 interface WinDisplayProps {
@@ -22,8 +25,8 @@ const GameWinDisplay: React.FC<WinDisplayProps> = ({ gameManager }) => {
   return (
     <div className="game-win-display">
       <p>
-        {getTranslation("Current Level", currentLanguage)}{" "}
-        {getTranslation(currentLevel.toString(), currentLanguage)}
+        {getStringTranslation("Current Level", currentLanguage)}{" "}
+        {getNumberTranslation(currentLevel, currentLanguage)}
       </p>
     </div>
   );

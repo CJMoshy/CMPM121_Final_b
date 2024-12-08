@@ -45,15 +45,6 @@ export const translationObject: TranslateObject = {
     "Loading Cells ...": "Loading Cells ...",
     "Current Level": "Current Level",
     "Current Turn": "Current Turn",
-    "0": "0",
-    "1": "1",
-    "2": "2",
-    "3": "3",
-    "4": "4",
-    "5": "5",
-    "6": "6",
-    "7": "7",
-    "8": "8",
   },
   cn: {
     "Reap": "收割",
@@ -74,18 +65,15 @@ export const translationObject: TranslateObject = {
     "Save": "保存",
     "Load": "加载",
     "Next Turn": "下一回合",
-    "Slot 1": "插槽 一",
-    "Slot 2": "插槽 二",
-    "Slot 3": "插槽 三",
-    "Slot 4": "插槽 四",
+    "Slot": "插槽",
     "Language": "语言",
     "Select a plant species": "选择一种植物种类",
     "Select a planterbox": "选择种植箱",
     "Select a Language": "选择一种语言",
     //horizontal instead of i in chinese
-    "Cell i": "单元格横",
+    "Cell i": "单元横横",
     //vertical instead of j in chinese
-    "Cell j": "单元格纵",
+    "Cell j": "单元竖纵",
     "Cell": "单元格",
     "Planterbox": "种植箱",
     "Selected PlanterBox": "已选择的种植箱",
@@ -96,25 +84,7 @@ export const translationObject: TranslateObject = {
     "Loading": "加载中",
     "Loading Cells ...": "加载单元格 。。。",
     "Current Level": "当前等级",
-    "Current Turn": "",
-    "0": "零",
-    "1": "一",
-    "2": "二",
-    "3": "三",
-    "4": "四",
-    "5": "五",
-    "6": "六",
-    "7": "七",
-    "8": "八",
-    "50": "五十",
-    "75": "七十五",
-    "100": "一百",
-    "110": "一百一十",
-    "125": "一百二十五",
-    "150": "一百五十",
-    "175": "一百七十五",
-    "200": "二百",
-    "225": "二百二十五",
+    "Current Turn": "当前回合",
   },
   fa: {
     "Reap": "درو کردن",
@@ -135,10 +105,7 @@ export const translationObject: TranslateObject = {
     "Save": "ذخیره",
     "Load": "بارگذاری",
     "Next Turn": "نوبت بعدی",
-    "Slot 1": "جایگاه ۱",
-    "Slot 2": "جایگاه ۲",
-    "Slot 3": "جایگاه ۳",
-    "Slot 4": "جایگاه ۴",
+    "Slot": "اشکاف",
     "Language": "زبان",
     "Select a plant species": "یک گونه گیاهی انتخاب کنید",
     "Select a planterbox": "یک جعبه کاشت انتخاب کنید",
@@ -157,28 +124,11 @@ export const translationObject: TranslateObject = {
     "Loading": "در حال بارگذاری",
     "Loading Cells ...": "...در حال بارگذاری سلول‌ها",
     "Current Level": "سطح فعلی",
-    "Current Turn": "",
-    "1": "۱",
-    "2": "۲",
-    "3": "۳",
-    "4": "۴",
-    "5": "۵",
-    "6": "۶",
-    "7": "۷",
-    "8": "۸",
-    "50": "پنجاه",
-    "75": "هفتاد و پنج",
-    "100": "صد",
-    "110": "صد و ده",
-    "125": "صد و بیست و پنج",
-    "150": "صد و پنجاه",
-    "175": "صد و هفتاد و پنج",
-    "200": "دویست",
-    "225": "دویست و بیست و پنج",
+    "Current Turn": "نوبت فعلی",
   },
 };
 
-export default function getTranslation(
+export function getStringTranslation(
   key: string,
   currentLanguage: string,
 ) {
@@ -189,4 +139,48 @@ export default function getTranslation(
     return translationObject[currentLanguage][key];
   }
   return key;
+}
+
+export function getNumberTranslation(
+  numberToTranslate: number,
+  currentLanguage: string,
+) {
+  let numberString: number | string | undefined;
+  if (currentLanguage == "fa") {
+    numberString = toFarsiNumerals(numberToTranslate);
+  } else {
+    numberString = numberToTranslate;
+  }
+  return numberString;
+}
+
+function toFarsiNumerals(num: number): number {
+  const farsiMapping: string = "۰۱۲۳۴۵۶۷۸۹";
+  // Convert number to string and split into individual digits
+  const digitsArray: string[] = num.toString().split("");
+  let farsiNumberString: string = "";
+
+  // Use forEach to iterate over each digit
+  digitsArray.forEach((digit: string) => {
+    //use regex to check if it's a digit
+    if (/^\d$/.test(digit)) {
+      //Convert the character to a number index
+      const index: number = parseInt(digit, 10);
+      //Append the corresponding Farsi digit
+      farsiNumberString += farsiMapping[index];
+    } else {
+      return;
+    }
+  });
+
+  // Convert the Farsi numeral string back to a number
+  const numberFromString: number = parseInt(
+    farsiNumberString.split("")
+      // Map Farsi digits back to indices
+      .map((digit) => farsiMapping.indexOf(digit))
+      .join(""),
+    10,
+  );
+
+  return numberFromString;
 }

@@ -2,7 +2,10 @@ import { useContext, useEffect, useState } from "react";
 import { CellIndexContext, TranslateContext } from "../Context.ts";
 import PlanterBoxUI from "./PlanterBoxUI.tsx";
 import PlantManager from "../controller/PlantController.ts";
-import getTranslation from "../util/TranslateLanguage.ts";
+import {
+  getNumberTranslation,
+  getStringTranslation,
+} from "../util/TranslateLanguage.ts";
 
 interface PlantableUIProps {
   plantManager: PlantManager;
@@ -60,10 +63,12 @@ const PlantableUI: React.FC<PlantableUIProps> = ({ plantManager }) => {
       style={{ visibility: isVisible ? "visible" : "hidden" }}
     >
       {loading
-        ? <p>{getTranslation("Loading Cells ...", currentLanguage)}</p>
+        ? <p>{getStringTranslation("Loading Cells ...", currentLanguage)}</p>
         : (
           <div>
-            <h3>{getTranslation("Select a planterbox", currentLanguage)}</h3>
+            <h3>
+              {getStringTranslation("Select a planterbox", currentLanguage)}
+            </h3>
             <form>
               {[...Array(8)].map((_, index) => {
                 const cellNumber = index + 1;
@@ -78,8 +83,8 @@ const PlantableUI: React.FC<PlantableUIProps> = ({ plantManager }) => {
                     />
                     <label htmlFor={`cell${cellNumber}`}>
                       {/* get a special condition for the farsi or mark it as a left to right*/}
-                      {`${getTranslation("Cell", currentLanguage)} ${
-                        getTranslation(cellNumber.toString(), currentLanguage)
+                      {`${getStringTranslation("Cell", currentLanguage)} ${
+                        getNumberTranslation(cellNumber, currentLanguage)
                       }`}
                     </label>
                   </div>
@@ -87,8 +92,9 @@ const PlantableUI: React.FC<PlantableUIProps> = ({ plantManager }) => {
               })}
             </form>
             <p>
-              {getTranslation("Selected PlanterBox", currentLanguage)}:{" "}
-              {getTranslation(selectedCellIndex, currentLanguage)}
+              {getStringTranslation("Selected PlanterBox", currentLanguage)}:
+              {" "}
+              {getNumberTranslation(selectedCellIndex, currentLanguage)}
             </p>
             <PlanterBoxUI plantManager={plantManager} />
           </div>
