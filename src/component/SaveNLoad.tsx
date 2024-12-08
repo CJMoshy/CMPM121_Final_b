@@ -1,12 +1,14 @@
 import { useContext } from "react";
 import { TranslateContext } from "../Context.ts";
 import type GameManager from "../controller/GameManager.ts";
+import type CommandPipeline from "../util/CommandPipeline/CommandPipeline.ts";
 import getTranslation from "../util/TranslateLanguage.ts";
 
 interface SNLComp {
   gameManager: GameManager;
+  cmdPipeline: CommandPipeline;
 }
-const SaveNLoad: React.FC<SNLComp> = ({ gameManager }) => {
+const SaveNLoad: React.FC<SNLComp> = ({ gameManager, cmdPipeline }) => {
   const handleOnChange = (
     event: React.ChangeEvent<HTMLSelectElement>,
     save: boolean,
@@ -17,7 +19,13 @@ const SaveNLoad: React.FC<SNLComp> = ({ gameManager }) => {
   };
 
   const handleSaveLoad = (save: boolean) => {
-    save ? gameManager.saveGame() : gameManager.loadSavedGame();
+    if (save) {
+      gameManager.saveGame();
+      cmdPipeline.saveToLocalStorage();
+    } else {
+      gameManager.loadSavedGame();
+      cmdPipeline.loadFromLocalStorage();
+    }
   };
 
   const { currentLanguage } = useContext(TranslateContext);

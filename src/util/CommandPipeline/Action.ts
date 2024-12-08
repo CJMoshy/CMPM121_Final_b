@@ -16,6 +16,5 @@ export default class Action {
       new Uint8Array(this.state.plantData).buffer,
     );
     manager.turnCounter = this.state.currentTurn;
-    // manager.UIManager.setTurnText(this.state.currentTurn.toString());
   }
 }

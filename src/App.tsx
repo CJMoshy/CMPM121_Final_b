@@ -94,7 +94,10 @@ function App() {
                   <GameTurnDisplay gameManager={gameManager} />
                   <PlayerController />
                   <GameController plantManager={plantManager} />
-                  <SaveNLoad gameManager={gameManager} />
+                  <SaveNLoad
+                    gameManager={gameManager}
+                    cmdPipeline={cmdPipeline}
+                  />
                   <UndoRedo cmdPipe={cmdPipeline} />
                   <SelectPlantUI plants={plants} />
                   <Translator />

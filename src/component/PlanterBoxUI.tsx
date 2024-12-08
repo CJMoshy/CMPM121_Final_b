@@ -1,10 +1,4 @@
-import {
-  CellContext,
-  CellIndexContext,
-  LevelContext,
-  TranslateContext,
-  TurnContext,
-} from "../Context.ts";
+import { CellContext, CellIndexContext, TranslateContext } from "../Context.ts";
 import PlantManager from "../controller/PlantController.ts";
 import { useContext, useEffect } from "react";
 import getTranslation from "../util/TranslateLanguage.ts";
@@ -22,7 +16,6 @@ const PlanterBoxUI: React.FC<BoxUIProps> = ({ plantManager }) => {
     // Update the state whenever selectedCell changes
     if (plantManager.isLoading === false && selectedCellIndex) {
       const allCells = plantManager.getAllPlantableCells();
-      // console.log(allCells);
       setCell(allCells.at(selectedCellIndex - 1));
     } else {
       console.log("planterbox is still loading");
@@ -33,7 +26,7 @@ const PlanterBoxUI: React.FC<BoxUIProps> = ({ plantManager }) => {
   }, [selectedCellIndex]); // Re-run when selectedCell or plantManager changes
 
   const updateUI = () => {
-    if (plantManager.isLoading === false) {
+    if (plantManager.isLoading === false && selectedCellIndex) {
       const allCells = plantManager.getAllPlantableCells();
       setCell(allCells.at(selectedCellIndex - 1));
     } else {
