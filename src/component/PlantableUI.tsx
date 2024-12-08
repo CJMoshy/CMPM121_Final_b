@@ -2,10 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { CellIndexContext, TranslateContext } from "../Context.ts";
 import PlanterBoxUI from "./PlanterBoxUI.tsx";
 import PlantManager from "../controller/PlantController.ts";
-import {
-  getNumberTranslation,
-  getStringTranslation,
-} from "../util/TranslateLanguage.ts";
+import { getStringTranslation } from "../util/TranslateLanguage.ts";
 
 interface PlantableUIProps {
   plantManager: PlantManager;
@@ -83,9 +80,9 @@ const PlantableUI: React.FC<PlantableUIProps> = ({ plantManager }) => {
                     />
                     <label htmlFor={`cell${cellNumber}`}>
                       {/* get a special condition for the farsi or mark it as a left to right*/}
-                      {`${getStringTranslation("Cell", currentLanguage)} ${
-                        getNumberTranslation(cellNumber, currentLanguage)
-                      }`}
+                      {`${
+                        getStringTranslation("Cell", currentLanguage)
+                      } ${cellNumber}`}
                     </label>
                   </div>
                 );
@@ -94,7 +91,7 @@ const PlantableUI: React.FC<PlantableUIProps> = ({ plantManager }) => {
             <p>
               {getStringTranslation("Selected PlanterBox", currentLanguage)}:
               {" "}
-              {getNumberTranslation(selectedCellIndex, currentLanguage)}
+              {selectedCellIndex}
             </p>
             <PlanterBoxUI plantManager={plantManager} />
           </div>
