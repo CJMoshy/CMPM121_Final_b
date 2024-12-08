@@ -1,4 +1,10 @@
-import { CellContext, CellIndexContext, TranslateContext } from "../Context.ts";
+import {
+  CellContext,
+  CellIndexContext,
+  LevelContext,
+  TranslateContext,
+  TurnContext,
+} from "../Context.ts";
 import PlantManager from "../controller/PlantController.ts";
 import { useContext, useEffect } from "react";
 import getTranslation from "../util/TranslateLanguage.ts";
@@ -11,6 +17,7 @@ const PlanterBoxUI: React.FC<BoxUIProps> = ({ plantManager }) => {
   const { cell, setCell } = useContext(CellContext);
 
   const { currentLanguage } = useContext(TranslateContext);
+
   useEffect(() => {
     // Update the state whenever selectedCell changes
     if (plantManager.isLoading === false && selectedCellIndex) {
@@ -20,7 +27,9 @@ const PlanterBoxUI: React.FC<BoxUIProps> = ({ plantManager }) => {
     } else {
       console.log("planterbox is still loading");
     }
-    document.addEventListener("updateUI", updateUI);
+    document.addEventListener("updateUI", () => {
+      updateUI();
+    });
   }, [selectedCellIndex]); // Re-run when selectedCell or plantManager changes
 
   const updateUI = () => {

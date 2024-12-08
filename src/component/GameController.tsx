@@ -4,6 +4,7 @@ import {
   CellIndexContext,
   PlantContext,
   TranslateContext,
+  TurnContext,
 } from "../Context.ts";
 import type PlantManager from "../controller/PlantController.ts";
 import getTranslation from "../util/TranslateLanguage.ts";
@@ -16,11 +17,17 @@ const GameController: React.FC<GCProps> = ({ plantManager }) => {
   const { cell, setCell } = useContext(CellContext);
   const { selectedPlant } = useContext(PlantContext);
   const { currentLanguage } = useContext(TranslateContext);
+  const { currentTurn, setCurrentTurn } = useContext(TurnContext);
+
+  const handleIncrementTurn = () => {
+    setCurrentTurn(currentTurn + 1);
+  };
 
   const takeTurn = () => { // fix this
     document.dispatchEvent(new Event("gameStateAdvance"));
     document.dispatchEvent(new Event("nextTurnEvent"));
     document.dispatchEvent(new Event("updateUI"));
+    handleIncrementTurn();
   };
 
   const reap = () => {

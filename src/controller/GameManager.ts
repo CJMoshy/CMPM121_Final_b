@@ -4,6 +4,8 @@ import { loadGameState, saveGameState } from "../util/Storage.ts";
 import Action from "../util/CommandPipeline/Action.ts";
 import query from "../util/json/scenario.json" with { type: "json" };
 
+const MAXLEVEL = query.levels.length;
+
 export default class GameManager {
   public plantManager: PlantManager;
   public selectedCell!: Cell | undefined;
@@ -12,7 +14,6 @@ export default class GameManager {
   public turnCounter!: number;
   public savedGameSlot: number;
   public loadGameSlot: number;
-
   constructor(
     plantManager: PlantManager,
   ) {
@@ -52,12 +53,14 @@ export default class GameManager {
       this.plantManager.setPlantableCellBuffer(plantData); // set all the cells to the loaded data
       this.plantManager.isLoading = false;
       document.dispatchEvent(new Event("updateUI"));
+      //add in additional uI updates for the controller and display
     }
   }
 
   // logic for advancing turn
   advanceTurn() {
     this.turnCounter += 1;
+
     const asCells = this.plantManager.getAllPlantableCells(); // get all cells as Cell[] type for easy manip
     let arrayBufferOffset = 0; // this is needed for the arraybuffer
     asCells.forEach((cell: Cell) => {
@@ -100,6 +103,9 @@ export default class GameManager {
 
   // deals with beating a level
   handleCompleteLevel() {
+    if (this.currentLevel > MAXLEVEL) {
+      return;
+    }
     const levelRequirement =
       (query as LevelsData).levels.find((e) =>
         e.levelNum === this.currentLevel
@@ -124,7 +130,7 @@ export default class GameManager {
           e.planterBox.plant.species === species
         ).length;
 
-      if (matchingCells !== x.amount) {
+      if (matchingCells < x.amount) {
         console.log("not enough plants for level to beat");
         return;
       }
@@ -134,5 +140,9 @@ export default class GameManager {
         `Found ${matchingCells} plantable cells for ${species} with growth level ${x.growthLevel}, LEVEL COMPLETE!`,
       );
     }
+
+    this.currentLevel += 1;
+    const ev = new CustomEvent("levelComplete", { detail: this.currentLevel });
+    self.dispatchEvent(ev);
   }
 }

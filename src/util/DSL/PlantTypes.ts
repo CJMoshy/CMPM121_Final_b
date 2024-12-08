@@ -30,7 +30,7 @@ export const plants = [
     },
   ]),
   Plant.named("Flytrap").growsWhen([
-    { sunlevel: 3, waterlevel: 1, proximity: 0 },
+    { sunlevel: 2, waterlevel: 1, proximity: 0 },
     {
       sunlevel: 4,
       waterlevel: 3,

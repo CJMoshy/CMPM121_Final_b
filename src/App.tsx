@@ -9,18 +9,22 @@ import PlantableUI from "./component/PlantableUI.tsx";
 import SelectPlantUI from "./component/SelectPlantUI.tsx";
 import SaveNLoad from "./component/SaveNLoad.tsx";
 import UndoRedo from "./component/UndoRedo.tsx";
+import GameWinDisplay from "./component/GameWinDisplay.tsx";
 import PlantManager from "./controller/PlantController.ts";
 import CommandPipeline from "./util/CommandPipeline/CommandPipeline.ts";
 import Action from "./util/CommandPipeline/Action.ts";
 import {
   CellContext,
   CellIndexContext,
+  LevelContext,
   PlantContext,
   TranslateContext,
+  TurnContext,
 } from "./Context.ts";
 import { useEffect, useState } from "react";
 import { plants } from "./util/DSL/PlantTypes.ts";
 import Translator from "./component/TranslateUI.tsx";
+import GameTurnDisplay from "./component/GameTurnDisplay.tsx";
 
 const plantManager = new PlantManager(plants);
 const gameManager = new GameManager(plantManager);
@@ -58,10 +62,21 @@ function App() {
     navigator.serviceWorker.register("./ServiceWorker.ts");
   }
 
+  const [currentLevel, setCurrentLevel] = useState<number>(1);
+  const [currentTurn, setCurrentTurn] = useState<number>(1);
+
   plantManager.loadSprites();
+
+  const incrementLevel = (e: CustomEvent) => {
+    setCurrentLevel(e.detail);
+  };
 
   useEffect(() => {
     gameManager.initGame();
+    self.addEventListener(
+      "levelComplete",
+      (e) => incrementLevel(e as CustomEvent),
+    );
   }, []);
 
   return (
@@ -72,14 +87,20 @@ function App() {
         <CellContext.Provider value={{ cell, setCell }}>
           <PlantContext.Provider value={{ selectedPlant, setSelectedPlant }}>
             <TranslateContext.Provider value={{ currentLanguage, setLanguage }}>
-              <RenderingEngine plantManager={plantManager} />
-              <PlayerController />
-              <GameController plantManager={plantManager} />
-              <SaveNLoad gameManager={gameManager} />
-              <UndoRedo cmdPipe={cmdPipeline} />
-              <SelectPlantUI plants={plants} />
-              <Translator />
-              <PlantableUI plantManager={plantManager} />
+              <LevelContext.Provider value={{ currentLevel, setCurrentLevel }}>
+                <TurnContext.Provider value={{ currentTurn, setCurrentTurn }}>
+                  <RenderingEngine plantManager={plantManager} />
+                  <GameWinDisplay gameManager={gameManager} />
+                  <GameTurnDisplay gameManager={gameManager} />
+                  <PlayerController />
+                  <GameController plantManager={plantManager} />
+                  <SaveNLoad gameManager={gameManager} />
+                  <UndoRedo cmdPipe={cmdPipeline} />
+                  <SelectPlantUI plants={plants} />
+                  <Translator />
+                  <PlantableUI plantManager={plantManager} />
+                </TurnContext.Provider>
+              </LevelContext.Provider>
             </TranslateContext.Provider>
           </PlantContext.Provider>
         </CellContext.Provider>
