@@ -3,7 +3,6 @@ import { TranslateContext } from "../Context.ts";
 import type GameManager from "../controller/GameManager.ts";
 import type CommandPipeline from "../util/CommandPipeline/CommandPipeline.ts";
 import {
-  getNumberTranslation,
   getStringTranslation,
 } from "../util/TranslateLanguage.ts";
 
@@ -47,7 +46,7 @@ const SaveNLoad: React.FC<SNLComp> = ({ gameManager, cmdPipeline }) => {
         {SAVESLOTS.map((slot) => (
           <option value={slot} key={slot}>
             {getStringTranslation("Slot", currentLanguage)}{" "}
-            {getNumberTranslation(slot, currentLanguage)}
+            {slot}
           </option>
         ))}
       </select>
@@ -59,7 +58,7 @@ const SaveNLoad: React.FC<SNLComp> = ({ gameManager, cmdPipeline }) => {
         {SAVESLOTS.map((slot) => (
           <option value={slot} key={slot}>
             {getStringTranslation("Slot", currentLanguage)}{" "}
-            {getNumberTranslation(slot, currentLanguage)}
+            {slot}
           </option>
         ))}
       </select>

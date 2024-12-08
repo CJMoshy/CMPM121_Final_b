@@ -1,7 +1,6 @@
 import { useContext, useEffect } from "react";
 import { TranslateContext, TurnContext } from "../Context.ts";
 import {
-  getNumberTranslation,
   getStringTranslation,
 } from "../util/TranslateLanguage.ts";
 import GameManager from "../controller/GameManager.ts";
@@ -26,7 +25,7 @@ const GameTurnDisplay: React.FC<TurnDisplayProps> = ({ gameManager }) => {
     <div className="game-turn-display">
       <p>
         {getStringTranslation("Current Turn", currentLanguage)}{" "}
-        {getNumberTranslation(currentTurn, currentLanguage)}
+        {currentTurn}
       </p>
     </div>
   );
