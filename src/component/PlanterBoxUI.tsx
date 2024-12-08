@@ -2,7 +2,6 @@ import { CellContext, CellIndexContext, TranslateContext } from "../Context.ts";
 import PlantManager from "../controller/PlantController.ts";
 import { useContext, useEffect } from "react";
 import {
-  getNumberTranslation,
   getStringTranslation,
 } from "../util/TranslateLanguage.ts";
 
@@ -39,25 +38,19 @@ const PlanterBoxUI: React.FC<BoxUIProps> = ({ plantManager }) => {
           <>
             <p>
               {getStringTranslation("Cell i", currentLanguage)}:{" "}
-              {getNumberTranslation(cell.i, currentLanguage)}
+              {cell.i}
             </p>
             <p>
               {getStringTranslation("Cell j", currentLanguage)}:{" "}
-              {getNumberTranslation(cell.j, currentLanguage)}
+              {cell.j}
             </p>
             <p>
               {getStringTranslation("Water Level", currentLanguage)}:{" "}
-              {getNumberTranslation(
-                cell.planterBox.waterLevel,
-                currentLanguage,
-              )}
+              {cell.planterBox.waterLevel}
             </p>
             <p>
               {getStringTranslation("Sun Level", currentLanguage)}:{" "}
-              {getNumberTranslation(
-                cell.planterBox.sunLevel,
-                currentLanguage,
-              )}
+              {cell.planterBox.sunLevel}
             </p>
             <p>
               {getStringTranslation("Plant Species", currentLanguage)}:{" "}
@@ -68,10 +61,7 @@ const PlanterBoxUI: React.FC<BoxUIProps> = ({ plantManager }) => {
             </p>
             <p>
               {getStringTranslation("Growth Level", currentLanguage)}:{" "}
-              {getNumberTranslation(
-                cell.planterBox.plant.growthLevel,
-                currentLanguage,
-              )}
+              {cell.planterBox.plant.growthLevel}
             </p>
           </>
         )
