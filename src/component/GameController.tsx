@@ -51,9 +51,7 @@ const GameController: React.FC<GCProps> = ({ plantManager }) => {
       },
     };
     setCell(newCell);
-    console.log(selectedCellIndex, newCell);
     plantManager.addPlantableCell(selectedCellIndex - 1, newCell);
-    console.log("plant cleared (reap)");
   };
 
   const sow = () => {
@@ -82,9 +80,7 @@ const GameController: React.FC<GCProps> = ({ plantManager }) => {
       },
     };
     setCell(newCell);
-    console.log(selectedCellIndex, newCell);
     plantManager.addPlantableCell(selectedCellIndex - 1, newCell);
-    console.log("plant sowed:", selectedPlant);
   };
 
   return (

@@ -130,7 +130,6 @@ export default class PlantManager implements Renderable {
         },
       };
     }
-    console.log(cell);
     return cell;
   }
 
@@ -165,7 +164,6 @@ export default class PlantManager implements Renderable {
     incrementByteOffset(1);
 
     // growth level
-    console.log(cell.planterBox.plant.growthLevel);
     this.plantableCellsView.setUint8(
       byteOffset,
       cell.planterBox.plant.growthLevel,
@@ -209,7 +207,6 @@ export default class PlantManager implements Renderable {
     } else species = this.plants[speciesIndex - 1].plantType;
     incrementByteOffset(1);
 
-    // console.log(growthLevel);
     return {
       i,
       j,
@@ -253,7 +250,6 @@ export default class PlantManager implements Renderable {
   }
 
   loadSprites() {
-    // const plantSprite = new Image();
     Object.values(plantSpriteMap).forEach((sprite) => {
       fetch(sprite);
     });

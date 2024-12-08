@@ -14,16 +14,11 @@ const PlanterBoxUI: React.FC<BoxUIProps> = ({ plantManager }) => {
 
   useEffect(() => {
     // Update the state whenever selectedCell changes
-    if (plantManager.isLoading === false && selectedCellIndex) {
-      const allCells = plantManager.getAllPlantableCells();
-      setCell(allCells.at(selectedCellIndex - 1));
-    } else {
-      console.log("planterbox is still loading");
-    }
+    updateUI();
     document.addEventListener("updateUI", () => {
       updateUI();
     });
-  }, [selectedCellIndex]); // Re-run when selectedCell or plantManager changes
+  }, [selectedCellIndex]);
 
   const updateUI = () => {
     if (plantManager.isLoading === false && selectedCellIndex) {
