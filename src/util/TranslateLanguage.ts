@@ -146,28 +146,30 @@ export function getNumberTranslation(
   currentLanguage: string,
 ) {
   let numberString: number | string | undefined;
-  if (currentLanguage == "fa") {
-    numberString = toFarsiNumerals(numberToTranslate);
-  } else {
-    numberString = numberToTranslate;
-  }
+  numberString = toNumerals(numberToTranslate, currentLanguage);
   return numberString;
 }
 
-function toFarsiNumerals(num: number): number {
-  const farsiMapping: string = "۰۱۲۳۴۵۶۷۸۹";
+function toNumerals(num: number, language: string): number {
+  let stringMapping: string;
+  if (language == "en" || "cn") {
+    return num;
+  }
+  if (language == "fa") {
+    stringMapping = "۰۱۲۳۴۵۶۷۸۹";
+  }
   // Convert number to string and split into individual digits
   const digitsArray: string[] = num.toString().split("");
-  let farsiNumberString: string = "";
+  let numberString: string = "";
 
   // Use forEach to iterate over each digit
   digitsArray.forEach((digit: string) => {
     //use regex to check if it's a digit
-    if (/^\d$/.test(digit)) {
+    if (/^\d$/.test(digit) && stringMapping != null) {
       //Convert the character to a number index
       const index: number = parseInt(digit, 10);
       //Append the corresponding Farsi digit
-      farsiNumberString += farsiMapping[index];
+      stringMapping += stringMapping[index];
     } else {
       return;
     }
@@ -175,9 +177,9 @@ function toFarsiNumerals(num: number): number {
 
   // Convert the Farsi numeral string back to a number
   const numberFromString: number = parseInt(
-    farsiNumberString.split("")
+    numberString.split("")
       // Map Farsi digits back to indices
-      .map((digit) => farsiMapping.indexOf(digit))
+      .map((digit) => numberString.indexOf(digit))
       .join(""),
     10,
   );
